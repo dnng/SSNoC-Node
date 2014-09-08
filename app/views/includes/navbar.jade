@@ -1,0 +1,18 @@
+nav.navbar.navbar-default.navbar-fixed-top(role="navigation")#top-navbar
+  div.navbar-header
+    button(class="btn btn-sucess navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse")
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+    p.navbar-brand #{title}
+      button(type='submit').btn.btn-default.search-symbol#openSearch
+        span.glyphicon.glyphicon-search
+
+  div.navbar-collapse.collapse
+    ul.nav.nav-justified#nav_list
+      li
+        a(href="/people")
+          strong People
+      li
+        a(href="/logout")
+          strong Logout
