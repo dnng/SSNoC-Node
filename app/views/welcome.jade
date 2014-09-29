@@ -7,5 +7,28 @@ html
     include includes/navbar.jade
     div.container.text-center
       br
-      h3 Welcome to Survivable Social Network on a Chip!!
+      h2 Welcome to Survivable Social Network on a Chip
+      h3 Please begin by sharing your status with the community - below are the status options
+      table.table.table-bordered
+        thead
+          tr
+            td Icon
+            td Status
+            td Explanation
+        tbody
+          tr.success
+            td 
+              img(src="/img/green.png" height=30)
+            td OK
+            td I am OK, I do not need help.
+          tr.warning
+            td 
+              img(src="/img/yellow.png" height=30)
+            td Help
+            td I need help, but this is not a life threatening emergency
+          tr.danger
+            td
+              img(src="/img/red.png" height=30)
+            td Emergency
+            td I need help now, as this is a life threatening emergency!
       a.btn.btn-info(href='/people') Let's start

@@ -1,4 +1,4 @@
-var host_url = "http://localhost:1234/ssnoc";
+var host_url = "http://localhost:8080/ssnoc";
 
 module.exports = {
   'get_all_users' : host_url + '/users',

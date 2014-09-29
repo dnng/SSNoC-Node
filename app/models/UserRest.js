@@ -54,7 +54,7 @@ User.getAllUsers = function(callback) {
       });
 
       users.sort(function(a,b) {
-        return a.userName > b.userName;
+        return a.userName < b.userName;
       });
 
       console.log("@@@@@ in User.getAllUser succeed users :" + JSON.stringify(users));
