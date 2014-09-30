@@ -90,29 +90,27 @@ html
               h2 505 Apt P,Central Avenue,Mountain View
               h3 7:30 PM 9/29/2014
 
-  div.container.text-center
-    table.table
-      tr
-        td Status
-        td 
-          div.row.text-center
-            div.col-md-8.col-sm-offset-4
-              select.form-control 
-                option OK--I am OK, I do not need help.
-                option Help--I need help, but this is not a life threatening emergency
-                option Emergency--I need help now, as this is a life threatening emergency!
+    div.container
+      h3.text-center
+        span.fa.fa-sign-in Survivable Social Network on a Chip
+      h3.text-center
+        span.fa.fa-sign-in Share Status
+    div.container.text-center
+        div.container.text-center.col-sm-6.col-sm-offset-3
+          div.form-group
+            select.form-control
+              option OK--I am OK, I do not need help.
+              option Help--I need help, but this is not a life threatening emergency
+              option Emergency--I need help now, as this is a life threatening emergency!
 
-      tr
-        td Location
-        td 
-          form.form-horizontal.form
-            div.form-group
-            label.inputEmail3
-            control-label.Email
-            div.col-md-8.col-sm-offset-4
-              input.email.form-control.inputEmail3.Email
-  div.col-sm-offset-6
-    a.btn.btn-info(href='/people') Update
+        div.container.text-center.col-sm-6.col-sm-offset-3
+          div.form-group
+            input.name(type='text' class='form-control' name='location' id="location" placeholder="Please enter a location")
+          button(type="submit", class='btn btn-info btn-lg' id="shareBtn") Share
 
-     
-    
+
+
+
+
+
+
