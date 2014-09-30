@@ -24,3 +24,95 @@ html
           div.col-md-12.col-xs-12
             h3.text-center.offline Offline
             div.text-center#participants_offline
+
+      table.table.table-bordered
+        thead
+          tr
+            td
+              strong Name
+            td
+              strong Status
+            td
+              strong Time & Location
+        tbody
+          tr.active
+            td
+              div.well#myself.search_item
+                div.row.user-row
+                  div.col-xs-3.col-sm-2.col-md-1.col-lg-1
+                    img(src="/img/green-dot.png" height=10)
+                    br
+                    img(src="/img/photo4.png" height=60)
+                  div.col-xs-8.col-sm-9.col-md-10.col-lg-10
+                    strong anson
+            td 
+              h2 OK
+              h3 
+                img(src="/img/green.png" height=40)
+                div.col-xs-8.col-sm-9.col-md-10.col-lg-10
+            td 
+              h2 537 Devonshire Ct,Mountain View
+              h3 6:00 PM 9/27/2014
+          tr.active
+            td
+              div.well#myself.search_item
+                div.row.user-row
+                  div.col-xs-3.col-sm-2.col-md-1.col-lg-1
+                    img(src="/img/grey-dot.png" height=10)
+                    br
+                    img(src="/img/photo4.png" height=60)
+                  div.col-xs-8.col-sm-9.col-md-10.col-lg-10
+                    strong Yixin
+            td 
+              h2 Help
+              h3 
+                img(src="/img/yellow.png" height=40)
+                div.col-xs-8.col-sm-9.col-md-10.col-lg-10
+            td 
+              h2 2458 Betlo Avenue,Mountain View
+              h3 9:30 AM 9/29/2014
+          tr.active
+            td
+              div.well#myself.search_item
+                div.row.user-row
+                  div.col-xs-3.col-sm-2.col-md-1.col-lg-1
+                    img(src="/img/green-dot.png" height=10)
+                    br
+                    img(src="/img/photo4.png" height=60)
+                  div.col-xs-8.col-sm-9.col-md-10.col-lg-10
+                    strong Poorva
+            td 
+              h2 Emergency
+              h3 
+                img(src="/img/red.png" height=40)
+                div.col-xs-8.col-sm-9.col-md-10.col-lg-10
+            td 
+              h2 505 Apt P,Central Avenue,Mountain View
+              h3 7:30 PM 9/29/2014
+
+  div.container.text-center
+    table.table
+      tr
+        td Status
+        td 
+          div.row.text-center
+            div.col-md-8.col-sm-offset-4
+              select.form-control 
+                option OK--I am OK, I do not need help.
+                option Help--I need help, but this is not a life threatening emergency
+                option Emergency--I need help now, as this is a life threatening emergency!
+
+      tr
+        td Location
+        td 
+          form.form-horizontal.form
+            div.form-group
+            label.inputEmail3
+            control-label.Email
+            div.col-md-8.col-sm-offset-4
+              input.email.form-control.inputEmail3.Email
+  div.col-sm-offset-6
+    a.btn.btn-info(href='/people') Update
+
+     
+    
