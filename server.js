@@ -5,7 +5,8 @@ var express = require("express"),
   _ = require("underscore"),
   passport = require('passport'),
   flash = require('connect-flash'),
-  User = require('./app/models/UserRest');
+  User = require('./app/models/UserRest'),
+  Status = require('./app/models/StatusRest');
 
 var participants = {
   online : {},
@@ -18,7 +19,7 @@ require('./config/passport')(passport);
 
 app.set("ipaddr", "0.0.0.0");
 
-app.set("port", 80);
+app.set("port", 3000);
 
 app.set("views", __dirname + "/app/views");
 
@@ -46,6 +47,18 @@ User.getAllUsers(function(err, users) {
 
   require('./app/routes')(app, _, io, participants, passport);
   require('./app/socket')(_, io, participants);
+});
+
+
+Status.getAllStatuses(function(err, statuses) {
+	  if (!err) {
+	    statuses.forEach(function(status) {
+	      console.log(status);
+	    });
+	  }
+	  
+	  require('./app/routes')(app, _, io, participants, passport);
+	  require('./app/socket')(_, io, participants);
 });
 
 http.listen(app.get("port"), app.get("ipaddr"), function() {

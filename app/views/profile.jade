@@ -1,0 +1,29 @@
+doctype html
+html
+  include includes/head.jade
+  script(src='/js/jquery.cookie.js')
+  script(src='/js/profile.js')
+  title SSNoC - People
+  body
+    include includes/navbar.jade
+    div.container
+      br
+      br
+      div.well#myself.search_item
+        div.row.user-row
+          div.col-xs-3.col-sm-2.col-md-1.col-lg-1
+            img(src="/img/green-dot.png" height=10)
+            br
+            img(src="/img/photo4.png" height=60)
+          div.col-xs-8.col-sm-9.col-md-10.col-lg-10
+            strong #{user_name}
+      br
+      div.row.text-center.col-sm-6.col-sm-offset-3
+        div.signup
+          form(action='/status', method='post')
+            div.form-group
+              input.name(type='text' class='form-control' name='status' id='status' placeholder="Enter status")
+            div.form-group
+              input.name(type='text' class="form-control" name='location' id='location' placeholder="Enter location")
+            button(type="submit" class="btn btn-info btn-lg" id="updateStatusBtn") Update Status
+              
