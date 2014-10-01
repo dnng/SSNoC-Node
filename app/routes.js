@@ -21,7 +21,7 @@ module.exports = function(app, _, io, participants, passport) {
     failureRedirect : '/',
     failureFlash: true
   }));
-  
+
   app.post("/status", isLoggedIn, profile_controller.postStatusUpdate);
 
   app.get("/people", isLoggedIn, people_controller.getPeople);
@@ -45,3 +45,4 @@ function refreshAllUsers(participants, callback) {
     callback();
   });
 }
+

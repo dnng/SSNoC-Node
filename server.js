@@ -51,16 +51,17 @@ User.getAllUsers(function(err, users) {
 
 
 Status.getAllStatuses(function(err, statuses) {
-	  if (!err) {
-	    statuses.forEach(function(status) {
-	      console.log(status);
-	    });
-	  }
-	  
-	  require('./app/routes')(app, _, io, participants, passport);
-	  require('./app/socket')(_, io, participants);
+  if (!err) {
+    statuses.forEach(function(status) {
+      console.log(status);
+    });
+  }
+
+  require('./app/routes')(app, _, io, participants, passport);
+  require('./app/socket')(_, io, participants);
 });
 
 http.listen(app.get("port"), app.get("ipaddr"), function() {
   console.log("Server up and running. Go to http://" + app.get("ipaddr") + ":" + app.get("port"));
 });
+
