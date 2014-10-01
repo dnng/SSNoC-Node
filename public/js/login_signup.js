@@ -50,9 +50,16 @@ function validateUserNameAndPassword() {
     $('#passport_alert').remove();
     return false;
   }
+  
+  if($('#userName').val().trim().length < 3) {
+	    $('#alert').text('Username is too short. Please input at least 3 characters');
+	    $('#alert').show();
+	    $('#passport_alert').remove();
+	    return false;
+	  }
 
   if(banned_list.some(function(val) { return val === $('#userName').val().trim() })) {
-    $('#alert').text('Invalid username. Please provide a valid username');
+    $('#alert').text('Reserverd username. Please choose another username');
     $('#alert').show();
     $('#passport_alert').remove();
     return false;
@@ -67,7 +74,7 @@ function validateUserNameAndPassword() {
 
 
   if( ($('#passwd').val().trim().length < 4)) {
-    $('#alert').text("Password is too short. Please input more than 4 chars!");
+    $('#alert').text("Password is too short. Please input at least 4 characters");
     $('#alert').show();
     $('#passport_alert').remove();
     return false;
