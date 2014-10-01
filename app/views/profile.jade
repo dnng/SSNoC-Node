@@ -18,12 +18,16 @@ html
           div.col-xs-8.col-sm-9.col-md-10.col-lg-10
             strong #{user_name}
       br
+      h3.text-center
+        span.fa.fa-sign-in Please share your status with the comunity
       div.row.text-center.col-sm-6.col-sm-offset-3
         div.signup
           form(action='/status', method='post')
             div.form-group
-              input.name(type='text' class='form-control' name='status' id='status' placeholder="Enter status")
+              select.form-control(name='status', id='status')
+                option(value="OK") I am OK, I do not need help
+                option(value="HELP") I need help, but this is not a life threatening emergency
+                option(value="EMERGENCY") I need help now, as this is a life threatening emergency!
             div.form-group
-              input.name(type='text' class="form-control" name='location' id='location' placeholder="Enter location")
+              input.name(type='text' class="form-control" name='location' id='location' placeholder="Enter your current location")
             button(type="submit" class="btn btn-info btn-lg" id="updateStatusBtn") Update Status
-              

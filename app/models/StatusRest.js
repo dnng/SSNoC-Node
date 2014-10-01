@@ -19,7 +19,7 @@ Status.getAllStatuses = function(callback) {
     }
     if (res.statusCode === 200) {
       var statuses = body.map(function(item, idx, arr){
-        return new Status(item.userName, item.status, item.location, item.statusTime);
+        return new Status(item.userName, item.status, item.location, item.createdAt);
       });
 
       console.log("@@@@@ in Status.getAllStatuses succeed statuses :" + JSON.stringify(statuses));

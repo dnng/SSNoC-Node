@@ -9,13 +9,9 @@ html
     div.container
       br
       br
-      div.well#myself.search_item
-        div.row.user-row
-          div.col-xs-3.col-sm-2.col-md-1.col-lg-1
-            img(src="/img/green-dot.png" height=10)
-            br
-            img(src="/img/photo4.png" height=60)
-          div.col-xs-8.col-sm-9.col-md-10.col-lg-10
-            strong #{user_name}
-      div.well
-        div.row.user-row
+      each status in statuses
+        div.well
+          div.row
+            li= " " + status.local.name + "'s Status: " + status.local.status + " @ " + status.local.location + ", Time: " + new Date(status.local.statusTime).toGMTString().slice(0, 25)
+
+            
