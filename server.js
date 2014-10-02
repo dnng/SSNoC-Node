@@ -39,7 +39,7 @@ app.use(passport.session());
 app.use(flash());
 
 User.getAllUsers(function(err, users) {
-  if (!err) {
+  if (!err && users && users.length > 0) {
     users.forEach(function(user) {
       participants.all.push({userName : user.local.name});
     });
@@ -51,7 +51,7 @@ User.getAllUsers(function(err, users) {
 
 
 Status.getAllStatuses(function(err, statuses) {
-  if (!err) {
+  if (!err && statuses && statuses.length > 0) {
     statuses.forEach(function(status) {
       console.log(status);
     });
