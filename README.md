@@ -41,3 +41,19 @@ sudo supervisor server.js
   the port number on line 1 of `config/rest_api.js` : `var host_url =
   "http://localhost:1234/ssnoc";`
 
+# Coding Style
+
+## Code
+
+- No trailing semicolons.
+- No trailing whitespace.
+- Keep lines fewer than 120 characters.
+- Always include a space before and after a function arrow.
+
+## Git usage
+
+- Imperative, short phrases (less than 70 chars; in doubt, follow instructions
+  from http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
+
+- Longer explanations: Skip a line between first comment and rest of the
+  comments.
