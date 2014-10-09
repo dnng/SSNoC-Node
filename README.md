@@ -47,8 +47,11 @@ sudo supervisor server.js
 
 - No trailing semicolons.
 - No trailing whitespace.
+- Space identation (no tabs)
+- 2 space ident
 - Keep lines fewer than 120 characters.
 - Always include a space before and after a function arrow.
+- In doubt refer to https://github.com/styleguide/javascript/1.0
 
 ## Git usage
 
