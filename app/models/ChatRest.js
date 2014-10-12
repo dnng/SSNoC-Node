@@ -55,12 +55,6 @@ Chat.getAllChatMessagesBetweenUsers = function() {
 Chat.getChats    = function(){};
 
 /*
- * TODO: Implement getByID
- *  Retrieve all message by ID
- */
-Chat.getByID     = function(){};
-
-/*
  *  User.generateHash = function(password) {
  *  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
  *  };

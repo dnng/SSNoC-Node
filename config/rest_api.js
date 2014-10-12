@@ -10,5 +10,4 @@ module.exports = {
   'send_message'               : host_url + '/message/',
   'get_all_msgs_between_users' : host_url + '/message/',
   'get_chats'                  : host_url + '/message/',
-  'get_message_by_id'          : host_url + '/message/'
 };
