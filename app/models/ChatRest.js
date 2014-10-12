@@ -16,7 +16,34 @@ function Chat(author_name, target_name, message_id, posted_at, content) {
  * TODO: Implement sendMessage
  * Send a chat message to another user
  */
-Chat.sendMessage = function(){};
+Chat.sendMessage = function(author_name, target_name, content, callback) {
+  console.log("Sending message from " + author_name + " to " + target_name);
+  var options = {
+    url: rest_api.send_message + this.local.name + "/" + this.local.name,
+    body: {
+      author_name : author_name,
+      target_name : target_name,
+      content     : content
+    },
+    json: true
+  };
+
+  request.post(options, function (err, res, body) {
+    if (err) {
+      console.log(err);
+      callback(err, null);
+      return;
+    }
+    if (res.statusCode !== 200 && res.statusCode !== 201) {
+      console.log(res.body);
+      callback(res.body, null);
+      return;
+    }
+    var new_chat = new Chat(body.userName, body.status, body.location, body.statusTime, undefined);
+    callback(null, new_status);
+    return;
+  });
+};
 
 /*
  * Retrieve all chat messages between two users
