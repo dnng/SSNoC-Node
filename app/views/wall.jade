@@ -7,10 +7,41 @@ html
   body
     include includes/navbar.jade
     div.container
+      form(action='/wall', method='post')
+        br
+        textarea.form-control(type='text' class="form-control" name='message' id='message' rows='5' placeholder="Something you want to tell others?")
+        br
+        div.row.text-center.col-sm-6.col-sm-offset-3
+          div.signup
+            div.form-group
+              select.form-control(name='status', id='status')
+                option(value="OK") I am OK, I do not need help
+                option(value="HELP") I need help, but this is not a life threatening emergency
+                option(value="EMERGENCY") I need help now, as this is a life threatening emergency!
+            div.form-group
+              input.name(type='text' class="form-control" name='location' id='location' placeholder="Enter your current location")
+            button(type="submit" class="btn btn-info btn-lg" id="updateStatusBtn") Update
+      
+    div.container
       br
       br
       each status in statuses
-        div.well
-          div.row
+        div.well  
+          if status.local.status == "OK"
+            br
             li= " " + status.local.name + "'s Status: " + status.local.status + " @ " + status.local.location + ", Time: " + new Date(status.local.statusTime).toGMTString().slice(0, 25)
-
+            br
+            img(src="/img/green.png" height=30)
+          else if status.local.status == "HELP"
+            br
+            li= " " + status.local.name + "'s Status: " + status.local.status + " @ " + status.local.location + ", Time: " + new Date(status.local.statusTime).toGMTString().slice(0, 25)
+            br
+            img(src="/img/yellow.png" height=30)
+          else if status.local.status == "EMERGENCY" 
+            br
+            li= " " + status.local.name + "'s Status: " + status.local.status + " @ " + status.local.location + ", Time: " + new Date(status.local.statusTime).toGMTString().slice(0, 25)
+            br
+            img(src="/img/red.png" height=30)
+            
+            
+            
