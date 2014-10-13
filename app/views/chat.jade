@@ -13,3 +13,9 @@ html
         div.well
           div.row
               li= " " + m.local.name + "' : " + m.local.m
+    div.container
+      form(action='/wall', method='post')
+        br
+        textarea.form-control(type='text' class="form-control" name='message' id='message' rows='5' placeholder="Chat with your friend?")
+        br
+        button(type="submit" class="btn btn-info btn-lg" id="sendPrivateMessage") Send
