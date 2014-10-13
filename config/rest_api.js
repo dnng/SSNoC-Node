@@ -9,5 +9,5 @@ module.exports = {
   'get_all_statuses'           : host_url + '/statuses',
   'send_message'               : host_url + '/message/',
   'get_all_msgs_between_users' : host_url + '/message/',
-  'get_chats'                  : host_url + '/message/',
+  'get_chat_buddies'           : host_url + '/message/',
 };
