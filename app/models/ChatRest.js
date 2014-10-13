@@ -52,11 +52,6 @@ Chat.sendMessage = function(author_name, target_name, content, callback) {
  * Retrieve all chat messages between two users
  */
 Chat.getAllChatMessagesBetweenUsers = function(author_name, target_name, callback) {
-  /*
-   * TODO: The URI should be composed of /messages/author_name/target_name
-   * Since we still don't have an UI definition, we are using this.local.name twice.
-   * WARNING: Need to revisit this!
-   */
   request(rest_api.get_all_msgs_between_users + author_name + "/" + target_name, {json: true}, function (err, res, body) {
     if (err) {
       callback(err, null);
