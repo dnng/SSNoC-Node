@@ -39,7 +39,10 @@ Chat.sendMessage = function(author_name, target_name, content, callback) {
       callback(res.body, null);
       return;
     }
-    var new_chat = new Chat(body.userName, body.status, body.location, body.statusTime, undefined);
+    /*
+     * TODO: Populate new Chat(body.this, body.that, ...)
+     */
+    var new_chat = new Chat();
     callback(null, new_status);
     return;
   });
@@ -54,7 +57,7 @@ Chat.getAllChatMessagesBetweenUsers = function() {
    * Since we still don't have an UI definition, we are using this.local.name twice.
    * WARNING: Need to revisit this!
    */
-  request.post(rest_api.get_all_msgs_between_users + this.local.name + "/" + this.body.name, {json: true}, function (err, res, body) {
+  request(rest_api.get_all_msgs_between_users + this.local.name + "/" + this.body.name, {json: true}, function (err, res, body) {
     if (err) {
       callback(err, null);
       return;
@@ -64,7 +67,7 @@ Chat.getAllChatMessagesBetweenUsers = function() {
         return new Chat(item.author_name, item.target_name, item.message_id, item.posted_at, item.content);
       });
 
-      console.log("@@@@@ in Chat.getAllChatMessagesBetweenUsers succeed :" + JSON.stringify(chat_messages));
+      console.log("@@@@@ in Chat.getAllChatMessagesBetweenUsers succeed:" + JSON.stringify(chat_messages));
       callback(null, chat_messages);
       return;
     }
@@ -79,7 +82,30 @@ Chat.getAllChatMessagesBetweenUsers = function() {
  * TODO: Implement getChats
  * Retrieve all users with whom a user has chatted with
  */
-Chat.getChats    = function(){};
+Chat.getChatBuddies = function(){
+  request(rest_api.get_chat_buddies + this.local.name + "/chatbuddies", {json: true}, function (err, res, body) {
+    if (err) {
+      callback(err, null);
+      return;
+    }
+    if (res.statusCode === 200) {
+      var statuses = body.map(function (item, idx, arr) {
+        /*
+         * TODO: Figure it out what should be returned here
+         */
+        return new Chat();
+      });
+
+      console.log("@@@@@ in Chat.getChatBuddies succeed:" + JSON.stringify(statuses));
+      callback(null, statuses);
+      return;
+    }
+    if (res.statusCode !== 200) {
+      callback(null, null);
+      return;
+    }
+  });
+};
 
 /*
  *  User.generateHash = function(password) {
