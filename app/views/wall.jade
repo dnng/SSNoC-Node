@@ -26,6 +26,7 @@ html
       br
       br
       each status in statuses
+<<<<<<< HEAD
         div.well  
           if status.local.status == "OK"
             br
@@ -42,6 +43,3 @@ html
             li= " " + status.local.name + "'s Status: " + status.local.status + " @ " + status.local.location + ", Time: " + new Date(status.local.statusTime).toGMTString().slice(0, 25)
             br
             img(src="/img/red.png" height=30)
-            
-            
-            

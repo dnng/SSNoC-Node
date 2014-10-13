@@ -1,0 +1,15 @@
+doctype html
+html
+  include includes/head.jade
+  script(src='/js/jquery.cookie.js')
+  script(src='/js/chat.js')
+  title SSNoC - Wall
+  body
+    include includes/navbar.jade
+    div.container
+      br
+      br
+      each m in messages
+        div.well
+          div.row
+              li= " " + m.local.name + "' : " + m.local.m

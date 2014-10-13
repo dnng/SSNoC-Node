@@ -1,6 +1,7 @@
 var LocalStrategy = require('passport-local').Strategy;
-var request = require('request');
-var WallMessage = require('../models/WallRest');
+var WallMessage   = require('../models/WallRest');
+var request       = require('request');
+var Status        = require('../models/StatusRest');
 
 module.exports = function(_, io, participants, passport) {
   return {
