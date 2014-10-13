@@ -18,9 +18,9 @@ html
           div.col-xs-8.col-sm-9.col-md-10.col-lg-10
             strong #{user_name}
       br
-      h3.text-center
-        span.fa.fa-sign-in Please share your status with the community
-      div.row.text-center.col-sm-6.col-sm-offset-3
+      imput.message.textarea.form-control(type='tex' class="form-control" rows='3' name='message' id='message' placeholder="Something you want to tell others?")
+      br
+      div.row.text-center.col-sm-6.col-sm-offset-0
         div.signup
           form(action='/status', method='post')
             div.form-group
