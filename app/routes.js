@@ -27,6 +27,8 @@ module.exports = function(app, _, io, participants, passport) {
   app.get("/people", isLoggedIn, people_controller.getPeople);
   app.get("/profile", isLoggedIn, profile_controller.getProfile);
   app.get("/wall", isLoggedIn, wall_controller.getStatuses);
+  app.post("/wall", isLoggedIn, wall_controller.postWallUpdate);
+
 };
 
 function isLoggedIn(req, res, next) {
