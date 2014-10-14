@@ -7,6 +7,8 @@ module.exports = function(app, _, io, participants, passport) {
   var profile_controller = require('./controllers/profile')(_, io, participants, passport);
   var wall_controller = require('./controllers/wall')(_, io, participants, passport);
   var chat_controller = require('./controllers/chat')(_, io, participants, passport);
+  var monitor_controller = require('./controllers/monitor')(_, io, participants, passport);
+  
 
   app.get("/", user_controller.getLogin);
 
@@ -30,7 +32,7 @@ module.exports = function(app, _, io, participants, passport) {
   app.get("/wall", isLoggedIn, wall_controller.getStatuses);
   app.post("/wall", isLoggedIn, wall_controller.postWallUpdate);
   app.get("/chat", isLoggedIn, chat_controller.getAllMessages);
-
+  app.get("/monitor", isLoggedIn, monitor_controller.getMonitorPage);
 };
 
 function isLoggedIn(req, res, next) {

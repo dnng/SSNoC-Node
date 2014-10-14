@@ -37,7 +37,7 @@ WallMessage.getAllStatuses = function(callback) {
 WallMessage.saveNewWallMessage = function(user_name, message, status, location, callback) {
   console.log("inside save new status method with " + user_name + " " + message + " " + status + " " + location);
   var options = {
-    url : rest_api.post_new_wallmessage,
+    url : rest_api.post_new_wallmessage + user_name,
     body : {userName: user_name, message: message, status: status, location: location},
     json: true
   };
