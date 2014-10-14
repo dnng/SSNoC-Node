@@ -21,7 +21,7 @@ function init() {
 
     for (var i = 0; i < keys.length; i++) {
       var name = keys[i];
-      var target_name = userName;
+      var author_name = userName;
       var img_ele = '<img src="/img/photo4.png" height=40/>';
       var photo_ele = '<div class="col-xs-3 col-sm-2 col-md-1 col-lg-1"><img src="/img/green-dot.png" height=10/><br/>'+img_ele + '</div>';
       var name_ele = '<div class="col-xs-8 col-sm-9 col-md-10 col-lg-10"><strong>' + name + '</strong></div>';
@@ -29,7 +29,7 @@ function init() {
       var dropdown_ele = '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".' + name + '">' + dropdown_symbol + '</div>';
 
       var info_ele = '<div class="row user-row search_item">' + photo_ele + name_ele + dropdown_ele + '</div>';
-      var detail_ele = '<div class="row user-info ' + name + '"><a href="/chat/'+target_name+'/'+name+'" class="btn btn-info col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">Chat?</a><hr/></div></div>';
+      var detail_ele = '<div class="row user-info ' + name + '"><a href="/chat/'+author_name+'/'+name+'" class="btn btn-info col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">Chat?</a><hr/></div></div>';
       if (map[name].sId === sessionId || name === my_name) {
       } else {
         $('#participants_online').append(info_ele);
