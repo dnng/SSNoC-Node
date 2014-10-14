@@ -29,7 +29,7 @@ function init() {
       var dropdown_ele = '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".' + name + '">' + dropdown_symbol + '</div>';
 
       var info_ele = '<div class="row user-row search_item">' + photo_ele + name_ele + dropdown_ele + '</div>';
-      var detail_ele = '<div class="row user-info ' + name + '"><a href="/chat/'+author_name+'/'+name+'" class="btn btn-info col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">Chat?</a><hr/></div></div>';
+      var detail_ele = '<div class="row user-info ' + name + '"><a href="/chat?author_name='+author_name+'&target_name='+name+'" class="btn btn-info col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">Chat?</a><hr/></div></div>';
       if (map[name].sId === sessionId || name === my_name) {
       } else {
         $('#participants_online').append(info_ele);
