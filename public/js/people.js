@@ -1,18 +1,15 @@
 function init() {
   var serverBaseUrl = document.domain;
-
-  var socket = io.connect(serverBaseUrl);
-
-  var sessionId = '';
-
-  window.my_name = '';
+  var socket        = io.connect(serverBaseUrl);
+  var sessionId     = '';
+  window.my_name    = '';
 
   function updateParticipants(participants) {
     $('#participants_online').html('');
     $('#participants_offline').html('');
-    var map = {};
+    var map      = {};
     var userName = '';
-    var userEle = '';
+    var userEle  = '';
     for (var sId in participants.online){
       userName = participants.online[sId].userName;
       if (map[userName] == undefined || map[userName] !== sessionId){
@@ -78,7 +75,6 @@ function init() {
     }).done(function(data) {
       var name = data.name;
       my_name = data.name;
-
       socket.emit('newUser', {id: sessionId, name: name});
     });
   });
@@ -98,18 +94,16 @@ function init() {
   var panels = $('.user-info');
   panels.hide();
   $('.dropdown-user').click(function() {
-    var dataFor = $(this).attr('data-for');
-    var idFor = $(dataFor);
+    var dataFor       = $(this).attr('data-for');
+    var idFor         = $(dataFor);
     var currentButton = $(this);
     idFor.slideToggle(400, function() {
-      if(idFor.is(':visible'))
-        {
-          currentButton.html('<i class="glyphicon glyphicon-chevron-up text-muted"></i>');
-        }
-        else
-          {
-            currentButton.html('<i class="glyphicon glyphicon-chevron-down text-muted"></i>');
-          }
+      if(idFor.is(':visible')) {
+        currentButton.html('<i class="glyphicon glyphicon-chevron-up text-muted"></i>');
+      }
+      else {
+        currentButton.html('<i class="glyphicon glyphicon-chevron-down text-muted"></i>');
+      }
     })
   });
 }
