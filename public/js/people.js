@@ -54,15 +54,13 @@ function init() {
       var dataFor = $(this).attr('data-for');
       var idFor = $(dataFor);
       var currentButton = $(this);
-      idFor.slideToggle(400, function() {
-        if(idFor.is(':visible'))
-          {
-            currentButton.html('<i class="glyphicon glyphicon-chevron-up text-muted"></i>');
-          }
-          else
-            {
-              currentButton.html('<i class="glyphicon glyphicon-chevron-down"></i>');
-            }
+      idFor.slideToggle(400, function () {
+        if (idFor.is(':visible')) {
+          currentButton.html('<i class="glyphicon glyphicon-chevron-up text-muted"></i>');
+        }
+        else {
+          currentButton.html('<i class="glyphicon glyphicon-chevron-down"></i>');
+        }
       })
     });
   }
