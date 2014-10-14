@@ -9,10 +9,10 @@ html
     div.container
       br
       br
-      each m in messages
+      each c in chats
         div.well
           div.row
-              li= " " + m.local.name + "' : " + m.local.m
+            li= " " + c.target_name + "' : " + c.content
     div.container
       form(action='/wall', method='post')
         br
