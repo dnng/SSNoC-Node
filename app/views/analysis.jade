@@ -8,7 +8,34 @@ html
     include includes/navbar.jade
     div.container
       br
+      br 
+      div.text-center
+        h3 Specify a time window
       br
-      textarea.form-control(rows='5' placeholder="Clusters of users")
+      form.form-horizontal(role='form')
+        div.form-group
+          label.col-sm-2.col-md-5.control-label within
+          div.col-sm-2.col-md-2
+            input#inputPassword.form-control(type='password', placeholder='how many')
+          label.col-sm-0.col-md-0.control-label hours
       br
-      button(type="submit" class="btn btn-info btn-lg" id="analyzeBtn") Analyze
+      div.text-center
+        button(type="submit" class="btn btn-info btn-lg" id="analyzeBtn") Analyze
+
+    div.container
+      br
+      br
+      div.panel.panel-default
+        div.panel-heading.text-center cluster results
+          table.table
+            tr
+              td #
+              td user names
+            tr
+              td 1
+              td Anson Yixin
+            tr
+              td 2
+              td Lloyd Daniel Neha Poorva
+    
+
