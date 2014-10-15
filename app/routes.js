@@ -34,6 +34,7 @@ module.exports = function(app, _, io, participants, passport) {
   app.post("/chat", isLoggedIn, chat_controller.sendMessage);
   app.get("/monitor", isLoggedIn, monitor_controller.getMonitorPage);
   app.get("/analysis", isLoggedIn, analysis_controller.getAnalysisPage);
+  app.get("/analyze", isLoggedIn, analysis_controller.getUserClusters);
   app.post("/startperf", isLoggedIn, monitor_controller.startPerfTest);
   app.post("/stopperf", isLoggedIn, monitor_controller.stopPerfTest);
 };

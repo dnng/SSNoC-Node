@@ -1,4 +1,4 @@
-var host_url = "http://localhost:1234/ssnoc";
+var host_url = "http://localhost:8080/ssnoc";
 
 module.exports = {
   'get_all_users'              : host_url + '/users',
@@ -14,3 +14,7 @@ module.exports = {
   'get_chat_buddies'           : host_url + '/message/',
   'get_user_clusters'          : host_url + '/usergroups/unconnected'
 };
+
+RestAPI.get_user_clusters = function(timeWindow){
+	return host_url + '/usergroups/unconnected/' + timeWindow;
+}
