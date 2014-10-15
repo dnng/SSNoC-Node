@@ -12,19 +12,19 @@ function WallMessage(user_name, message, status, location, statusTime){
   };
 }
 
-WallMessage.getAllStatuses = function(callback) {
-  request(rest_api.get_all_statuses, {json:true}, function(err, res, body) {
+WallMessage.getAllWallMessages = function(callback) {
+  request(rest_api.get_all_wall_messages, {json:true}, function(err, res, body) {
     if (err){
       callback(err,null);
       return;
     }
     if (res.statusCode === 200) {
-      var statuses = body.map(function(item, idx, arr){
+      var wallMessages = body.map(function(item, idx, arr){
         return new WallMessage(item.userName, item.message, item.status, item.location, item.createdAt);
       });
 
-      console.log("@@@@@ in Status.getAllStatuses succeed statuses :" + JSON.stringify(statuses));
-      callback(null, statuses);
+      console.log("@@@@@ in Status.getAllWallMessage succeed statuses :" + JSON.stringify(wallMessages));
+      callback(null, wallMessages);
       return;
     }
     if (res.statusCode !== 200) {
@@ -37,7 +37,7 @@ WallMessage.getAllStatuses = function(callback) {
 WallMessage.saveNewWallMessage = function(user_name, message, status, location, callback) {
   console.log("inside save new status method with " + user_name + " " + message + " " + status + " " + location);
   var options = {
-    url : rest_api.post_new_wallmessage + user_name,
+    url : rest_api.post_new_wall_message + user_name,
     body : {userName: user_name, message: message, status: status, location: location},
     json: true
   };

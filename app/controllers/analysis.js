@@ -5,12 +5,12 @@ var Status        = require('../models/StatusRest');
 
 module.exports = function(_, io, participants, passport) {
   return {
-	getAllWallMessages: function(req, res) {
-        WallMessage.getAllWallMessages(function(err, messages) {
-        console.log("THESE ARE THE " + messages);
+    getStatuses: function(req, res) {
+        WallMessage.getAllWallMessage(function(err, statuses) {
+        console.log(statuses);
         if (err)
           return res.redirect('/welcome');
-        res.render("wall", {userId: req.session.userId, title:"Statuses", user_name:req.session.passport.user.user_name, messages: messages});
+        res.render("wall", {userId: req.session.userId, title:"Statuses", user_name:req.session.passport.user.user_name, statuses: statuses});
       });
     },
 

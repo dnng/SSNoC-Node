@@ -25,20 +25,21 @@ html
     div.container
       br
       br
-      each status in statuses
-        div.well  
-          if status.local.status == "OK"
-            br
-            li= " " + status.local.name + "'s Status: " + status.local.status + " @ " + status.local.location + ", Time: " + new Date(status.local.statusTime).toGMTString().slice(0, 25)
-            br
-            img(src="/img/green.png" height=30)
-          else if status.local.status == "HELP"
-            br
-            li= " " + status.local.name + "'s Status: " + status.local.status + " @ " + status.local.location + ", Time: " + new Date(status.local.statusTime).toGMTString().slice(0, 25)
-            br
-            img(src="/img/yellow.png" height=30)
-          else if status.local.status == "EMERGENCY" 
-            br
-            li= " " + status.local.name + "'s Status: " + status.local.status + " @ " + status.local.location + ", Time: " + new Date(status.local.statusTime).toGMTString().slice(0, 25)
-            br
-            img(src="/img/red.png" height=30)
+      if (messages !== null)
+        each message in messages
+          div.well  
+            if message.local.status == "OK"
+              br
+              li= " " + message.local.name + "'s Status: " + message.local.content + " @ " + message.local.location + ", Time: " + new Date(message.local.statusTime).toGMTString().slice(0, 25)
+              br
+              img(src="/img/green.png" height=30)
+            else if status.local.status == "HELP"
+              br
+              li= " " + status.local.name + "'s Status: " + status.local.status + " @ " + status.local.location + ", Time: " + new Date(status.local.statusTime).toGMTString().slice(0, 25)
+              br
+              img(src="/img/yellow.png" height=30)
+            else if status.local.status == "EMERGENCY" 
+              br
+              li= " " + status.local.name + "'s Status: " + status.local.status + " @ " + status.local.location + ", Time: " + new Date(status.local.statusTime).toGMTString().slice(0, 25)
+              br
+              img(src="/img/red.png" height=30)

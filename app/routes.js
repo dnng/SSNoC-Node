@@ -1,5 +1,4 @@
-var User = require('./models/UserRest');
-var Status = require('./models/StatusRest');
+var User          = require('./models/UserRest');
 
 module.exports = function(app, _, io, participants, passport) {
   var user_controller = require('./controllers/user')(_, io, participants, passport, refreshAllUsers);
@@ -29,7 +28,7 @@ module.exports = function(app, _, io, participants, passport) {
 
   app.get("/people", isLoggedIn, people_controller.getPeople);
   app.get("/profile", isLoggedIn, profile_controller.getProfile);
-  app.get("/wall", isLoggedIn, wall_controller.getStatuses);
+  app.get("/wall", isLoggedIn, wall_controller.getAllWallMessages);
   app.post("/wall", isLoggedIn, wall_controller.postWallUpdate);
   app.get("/chat", isLoggedIn, chat_controller.getAllMessages);
   app.post("/chat", isLoggedIn, chat_controller.getAllMessages);
