@@ -45,7 +45,6 @@ html
               th Rem Vol Mem
               th Used Pers Mem
               th Rem Pers Mem
-              th Online Users
           tbody
             each memory in memories
               if typeof memory !== 'undefined'
@@ -55,6 +54,3 @@ html
                   td #{memory.local.rem_volatile_mem}
                   td #{memory.local.used_persistent_mem}
                   td #{memory.local.rem_persistent_mem}
-                  td #{memory.local.online_users}
-                
-     
