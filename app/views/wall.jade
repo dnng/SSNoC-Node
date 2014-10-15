@@ -10,18 +10,29 @@ html
       form(action='/wall', method='post')
         br
         br
-        div.row.text-center.col-sm-8.col-sm-offset-2
+        div.row.text-center.col-sm-8
           div.signup
             textarea.form-control(type='text' class="form-control" name='content' id='content' rows='3' placeholder="Share a message with the community")
-            br
+            div.form-group
+              input.name(type='hidden' class="form-control" name='location' id='location' placeholder="Enter your current location")
+        div.col-sm-4
+          button(type="submit" class="btn btn-info" id="shareMessageBtn") Share Message
+      br
+      br
+      form(action='/status', method='post')
+        br
+        br
+        div.row.text-center.col-sm-8
+          div.signup
             div.form-group
               select.form-control(name='status', id='status')
                 option(value="OK") I am OK, I do not need help
                 option(value="HELP") I need help, but this is not a life threatening emergency
                 option(value="EMERGENCY") I need help now, as this is a life threatening emergency!
             div.form-group
-              input.name(type='text' class="form-control" name='location' id='location' placeholder="Enter your current location")
-            button(type="submit" class="btn btn-info btn-lg" id="updateStatusBtn") Update
+              input.name(type='hidden' class="form-control" name='location' id='location' placeholder="Enter your current location")
+        div.col-sm-4
+          button(type="submit" class="btn btn-info" id="updateStatusBtn") Share Status
     div.container
       br
       br

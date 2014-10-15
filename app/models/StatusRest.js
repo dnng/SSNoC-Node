@@ -2,12 +2,12 @@ var bcrypt = require('bcrypt-nodejs');
 var request = require('request');
 var rest_api = require('../../config/rest_api');
 
-function Status(user_name, status, location, statusTime){
+function Status(author, status, location, postedAt){
   this.local = {
-    name : user_name,
+    author : author,
     status : status,
     location : location,
-    statusTime : statusTime
+    postedAt : postedAt
   };
 }
 
@@ -19,7 +19,7 @@ Status.getAllStatuses = function(callback) {
     }
     if (res.statusCode === 200) {
       var statuses = body.map(function(item, idx, arr){
-        return new Status(item.userName, item.status, item.location, item.createdAt);
+        return new Status(item.author, item.status, item.location, item.postedAt);
       });
 
       console.log("@@@@@ in Status.getAllStatuses succeed statuses :" + JSON.stringify(statuses));
