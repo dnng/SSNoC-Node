@@ -35,11 +35,35 @@ WallMessage.getAllWallMessages = function(callback) {
   });
 };
 
-WallMessage.saveNewWallMessage = function(author, content, status, location, callback) {
-  console.log("inside save new status method with " + author + " " + content + " " + status + " " + location);
+
+WallMessage.getAllWallAndStatusMessages = function(callback) {
+	  request(rest_api.get_all_wall_status_messages, {json:true}, function(err, res, body) {
+	    if (err){
+	      callback(err,null);
+	      return;
+	    }
+	    if (res.statusCode === 200) {
+	      var wallMessages = body.map(function(item, idx, arr){
+	        return new WallMessage(item.messageId, item.author, item.content, item.status, item.location, item.postedAt);
+	      });
+
+	      console.log("@@@@@ in Status.getAllWallMessage succeed statuses :" + JSON.stringify(wallMessages));
+	      callback(null, wallMessages);
+	      return;
+	    }
+	    if (res.statusCode !== 200) {
+	      callback(null, null);
+	      return;
+	    }
+	  });
+	};
+
+
+WallMessage.saveNewWallMessage = function(author, content, location, callback) {
+  console.log("inside save new status method with " + author + " " + content + " " + location);
   var options = {
     url : rest_api.post_new_wall_message + author,
-    body : {author: author, content: content, status: status, location: location},
+    body : {author: author, content: content, location: location},
     json: true
   };
 
@@ -54,7 +78,7 @@ WallMessage.saveNewWallMessage = function(author, content, status, location, cal
       callback(res.body, null);
       return;
     }
-    var new_wall_message = new WallMessage(body.author, body.content, body.status, body.location, body.postAt, undefined);
+    var new_wall_message = new WallMessage(body.messageId, body.author, body.content, body.status, body.location, body.postAt);
     callback(null, new_wall_message);
     return;
   });

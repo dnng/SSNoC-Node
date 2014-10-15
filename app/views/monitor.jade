@@ -24,9 +24,37 @@ html
       h3 Measure Memory
       div.signup
         br
-        form(action='/memtest', method='post', class='form-group')
+        div.row
           div.col-md-6
-            input.name(type='text' class='form-control' name='location' id='location' placeholder="Enter memory test duration (seconds)")
-          div.col-md-3
-            button(type="submit" class="btn btn-primary" id="updateStatusBtn") Start Memory Test
-
+            form(action='/startmem', method='post', class='form-group')
+              div.col-md-6.col-md-offset-3
+                button(type="submit" class="btn btn-primary" id="startMemoryTestBtn") Start Memory Test
+          div.col-md-6
+            form(action='/stopmem', method='post', class='form-group')
+              div.col-md-6.col-md-offset-3
+                button(type="submit" class="btn btn-primary" id="stopMemoryTestBtn") Stop Memory Test
+      div.container
+      br
+      br
+      if ( typeof memories !== 'undefined' && memories !== null )
+        table.table
+          thead
+            tr
+              th Time
+              th Used Vol Mem
+              th Rem Vol Mem
+              th Used Pers Mem
+              th Rem Pers Mem
+              th Online Users
+          tbody
+            each memory in memories
+              if typeof memory !== 'undefined'
+                tr
+                  td #{memory.local.created_at}
+                  td #{memory.local.used_volatile_mem}
+                  td #{memory.local.rem_volatile_mem}
+                  td #{memory.local.used_persistent_mem}
+                  td #{memory.local.rem_persistent_mem}
+                  td #{memory.local.online_users}
+                
+     

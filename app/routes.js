@@ -35,8 +35,10 @@ module.exports = function(app, _, io, participants, passport) {
   app.get("/monitor", isLoggedIn, monitor_controller.getMonitorPage);
   app.get("/analysis", isLoggedIn, analysis_controller.getAnalysisPage);
   app.get("/analyze", isLoggedIn, analysis_controller.getUserClusters);
-  app.post("/startperf", isLoggedIn, monitor_controller.startPerfTest);
-  app.post("/stopperf", isLoggedIn, monitor_controller.stopPerfTest);
+  app.post("/startmem", isLoggedIn, monitor_controller.startMemoryTest);
+  app.post("/stopmem", isLoggedIn, monitor_controller.stopMemoryTest);
+  app.post("/startperf", isLoggedIn, monitor_controller.startPerformanceTest);
+  app.post("/stopperf", isLoggedIn, monitor_controller.stopPerformanceTest);
 };
 
 function isLoggedIn(req, res, next) {

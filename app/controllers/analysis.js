@@ -14,7 +14,7 @@ module.exports = function(_, io, participants, passport) {
             console.log("Clusternames: " + clusternames);
             if (err)
               return res.redirect('/welcome');
-            res.render("analysis", {name:clusternames.local.name});
+            res.render("analysis", {req.session.passport.user.user_name});
           });
         },
   };
