@@ -40,7 +40,7 @@ module.exports = function(_, io, participants, passport, refreshAllUsers) {
     },
 
     getWelcome : function(req, res) {
-      res.render('welcome', {title: "Hello " + req.session.passport.user.user_name + " !!"} );
+      res.render('welcome', {title: "Welcome"} );
     }
   };
 };
