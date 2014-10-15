@@ -31,7 +31,7 @@ module.exports = function(app, _, io, participants, passport) {
   app.get("/wall", isLoggedIn, wall_controller.getAllWallMessages);
   app.post("/wall", isLoggedIn, wall_controller.postWallUpdate);
   app.get("/chat", isLoggedIn, chat_controller.getAllMessages);
-  app.post("/chat", isLoggedIn, chat_controller.getAllMessages);
+  app.post("/chat", isLoggedIn, chat_controller.sendMessage);
   app.get("/monitor", isLoggedIn, monitor_controller.getMonitorPage);
   app.get("/analysis", isLoggedIn, analysis_controller.getAnalysisPage);
   app.post("/startperf", isLoggedIn, monitor_controller.startPerfTest);
