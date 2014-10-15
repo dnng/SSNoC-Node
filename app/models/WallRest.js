@@ -2,14 +2,14 @@ var bcrypt = require('bcrypt-nodejs');
 var request = require('request');
 var rest_api = require('../../config/rest_api');
 
-function WallMessage(message_id, author, content, status, location, posted_at){
+function WallMessage(message_id, author, content, status, location, postedAt){
   this.local = {
     message_id : message_id,
     author : author,
     content : content,
     status : status,
     location : location,
-    posted_at : posted_at
+    postedAt : postedAt
   };
 }
 

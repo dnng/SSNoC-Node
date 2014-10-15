@@ -9,10 +9,11 @@ html
     div.container
       form(action='/wall', method='post')
         br
-        textarea.form-control(type='text' class="form-control" name='content' id='content' rows='5' placeholder="Share a message with the community")
         br
-        div.row.text-center.col-sm-6.col-sm-offset-3
+        div.row.text-center.col-sm-8.col-sm-offset-2
           div.signup
+            textarea.form-control(type='text' class="form-control" name='content' id='content' rows='3' placeholder="Share a message with the community")
+            br
             div.form-group
               select.form-control(name='status', id='status')
                 option(value="OK") I am OK, I do not need help
@@ -28,23 +29,23 @@ html
         each message in messages
           if typeof message !== 'undefined'
             div.well  
-              if message.content == "OK"
+              if message.local.content == "OK"
                 br
-                li= " " + message.name + "'s Status: " + message.content + " @ " + message.location + ", Time: " + new Date(message.postedAt).toGMTString().slice(0, 25)
+                li= " " + message.local.author + "'s Status: " + message.local.content + " @ " + message.local.location + ", Time: " + new Date(message.local.postedAt).toGMTString().slice(0, 25)
                 br
                 img(src="/img/green.png" height=30)
-              else if message.content == "HELP"
+              else if message.local.content == "HELP"
                 br
-                li= " " + message.name + "'s Status: " + message.content + " @ " + message.location + ", Time: " + new Date(message.postedAt).toGMTString().slice(0, 25)
+                li= " " + message.local.author + "'s Status: " + message.local.content + " @ " + message.local.location + ", Time: " + new Date(message.local.postedAt).toGMTString().slice(0, 25)
                 br
                 img(src="/img/yellow.png" height=30)
-              else if message.content == "EMERGENCY" 
+              else if message.local.content == "EMERGENCY" 
                 br
-                li= " " + message.name + "'s Status: " + message.content + " @ " + message.location + ", Time: " + new Date(message.postedAt).toGMTString().slice(0, 25)
+                li= " " + message.local.author + "'s Status: " + message.local.content + " @ " + message.local.location + ", Time: " + new Date(message.local.postedAt).toGMTString().slice(0, 25)
                 br
                 img(src="/img/red.png" height=30)
               else
                 br
-                li= " " + message.name + "'s Status: " + message.content + " @ " + message.location + ", Time: " + new Date(message.postedAt).toGMTString().slice(0, 25)
+                li= " " + message.local.author + "'s Status: " + message.local.content + " @ " + message.local.location + ", Time: " + new Date(message.local.postedAt).toGMTString().slice(0, 25)
                 br
                
