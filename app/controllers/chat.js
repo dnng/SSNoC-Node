@@ -20,11 +20,11 @@ module.exports = function(_, io, participants, passport) {
       });
     },
     sendMessage: function (req, res) {
-      Chat.sendMessage(author_name, target_name, message, function (err, chats) {
+      Chat.sendMessage(req.body.author_name, req.body.target_name, req.body.message, function (err, chats) {
         console.log(chats);
         if (err)
           return res.redirect('/welcome');
-        res.render("chat", {userId: req.session.userId, title: "Chats", author_name: author_name, target_name : target_name, chats: chats});
+        res.render("chat", {userId: req.session.userId, title: "Chats", author_name: req.body.author_name, target_name : req.body.target_name, chats: chats});
       });
     }
   };
