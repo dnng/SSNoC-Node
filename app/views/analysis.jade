@@ -16,26 +16,26 @@ html
         div.form-group
           label.col-sm-2.col-md-5.control-label within
           div.col-sm-2.col-md-2
-            input#inputPassword.form-control(type='password', placeholder='how many')
+            input.timeWindow(class="form-control" name='timeWindow' id='timeWindow' type='text' placeholder='how many')
           label.col-sm-0.col-md-0.control-label hours
       br
       div.text-center
         button(type="submit" class="btn btn-info btn-lg" id="analyzeBtn") Analyze
 
     div.container
-      br
-      br
-      div.panel.panel-default
-        div.panel-heading.text-center cluster results
-          table.table
-            tr
-              td #
-              td user names
-            tr
-              td 1
-              td Anson Yixin
-            tr
-              td 2
-              td Lloyd Daniel Neha Poorva
-    
+    br
+    br
+    if ( typeof clusters !== 'undefined' && clusters !== null )
+      table.table
+        thead
+          tr
+            th #
+            th cluster users
+        tbody
+          each cluster in clusters
+            if typeof cluster !== 'undefined'
+              tr
+                td 1
+                td #{cluster.local.used_id}
+
 
