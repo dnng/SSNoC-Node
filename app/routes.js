@@ -34,6 +34,8 @@ module.exports = function(app, _, io, participants, passport) {
   app.get("/chat", isLoggedIn, chat_controller.getAllMessages);
   app.post("/chat", isLoggedIn, chat_controller.getAllMessages);
   app.get("/monitor", isLoggedIn, monitor_controller.getMonitorPage);
+  app.post("/startperf", isLoggedIn, monitor_controller.startPerfTest);
+  app.post("/stopperf", isLoggedIn, monitor_controller.stopPerfTest);
 };
 
 function isLoggedIn(req, res, next) {

@@ -8,27 +8,25 @@ html
     include includes/navbar.jade
     div.container
       br
+      h3 Measure Performance
+      div.signup
+        br
+        form(action='/startperf', method='post', class='form-group')
+          div.col-md-6
+            input.name(type='text' class='form-control' name='location' id='location' placeholder="Enter performance test duration (seconds)")
+          div.col-md-3
+            button(type="submit" class="btn btn-primary" id="startPerfTestBtn") Start Performance Test
+        br
+        form(action='/stopperf', method='post', class='form-group')
+          div.col-md-3.col-md-offset-6
+            button(type="submit" class="btn btn-primary" id="stopPerfTestBtn") Stop Performance Test
       br
-      div.well#myself.search_item
-        div.row.user-row
-          div.col-xs-3.col-sm-2.col-md-1.col-lg-1
-            img(src="/img/green-dot.png" height=10)
-            br
-            img(src="/img/photo4.png" height=60)
-          div.col-xs-8.col-sm-9.col-md-10.col-lg-10
-            strong #{user_name}
-      br
-      h3.text-center
-        span.fa.fa-sign-in Please share your status with the community
-      div.row.text-center.col-sm-6.col-sm-offset-3
-        div.signup
-          form(action='/status', method='post')
-            div.form-group
-              select.form-control(name='status', id='status')
-                option(value="OK") I am OK, I do not need help
-                option(value="HELP") I need help, but this is not a life threatening emergency
-                option(value="EMERGENCY") I need help now, as this is a life threatening emergency!
-            div.form-group
-              input.name(type='text' class="form-control" name='location' id='location' placeholder="Enter your current location")
-            button(type="submit" class="btn btn-info btn-lg" id="updateStatusBtn") Update Status
+      h3 Measure Memory
+      div.signup
+        br
+        form(action='/memtest', method='post', class='form-group')
+          div.col-md-6
+            input.name(type='text' class='form-control' name='location' id='location' placeholder="Enter memory test duration (seconds)")
+          div.col-md-3
+            button(type="submit" class="btn btn-primary" id="updateStatusBtn") Start Memory Test
 
