@@ -2,11 +2,13 @@ doctype html
 html
   include includes/head.jade
   script(src='/js/jquery.cookie.js')
-  //script(src='/js/analysis.js')
+  script(src='/js/analysis.js')
   title SSNoC - Analysis
   body
     include includes/navbar.jade
     div.container
-      div.col-xs-3.col-sm-2.col-md-1.col-lg-1
-        img(src="/img/green-dot.png" height=10
-
+      br
+      br
+      textarea.form-control(rows='5' placeholder="Clusters of users")
+      br
+      button(type="submit" class="btn btn-info btn-lg" id="analyzeBtn") Analyze
