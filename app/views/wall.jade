@@ -9,7 +9,7 @@ html
     div.container
       form(action='/wall', method='post')
         br
-        textarea.form-control(type='text' class="form-control" name='message' id='message' rows='5' placeholder="Something you want to tell others?")
+        textarea.form-control(type='text' class="form-control" name='content' id='content' rows='5' placeholder="Share a message with the community")
         br
         div.row.text-center.col-sm-6.col-sm-offset-3
           div.signup
@@ -21,25 +21,30 @@ html
             div.form-group
               input.name(type='text' class="form-control" name='location' id='location' placeholder="Enter your current location")
             button(type="submit" class="btn btn-info btn-lg" id="updateStatusBtn") Update
-
     div.container
       br
       br
-      if (messages !== null)
+      if messages !== null
         each message in messages
-          div.well  
-            if message.local.status == "OK"
-              br
-              li= " " + message.local.name + "'s Status: " + message.local.content + " @ " + message.local.location + ", Time: " + new Date(message.local.statusTime).toGMTString().slice(0, 25)
-              br
-              img(src="/img/green.png" height=30)
-            else if status.local.status == "HELP"
-              br
-              li= " " + status.local.name + "'s Status: " + status.local.status + " @ " + status.local.location + ", Time: " + new Date(status.local.statusTime).toGMTString().slice(0, 25)
-              br
-              img(src="/img/yellow.png" height=30)
-            else if status.local.status == "EMERGENCY" 
-              br
-              li= " " + status.local.name + "'s Status: " + status.local.status + " @ " + status.local.location + ", Time: " + new Date(status.local.statusTime).toGMTString().slice(0, 25)
-              br
-              img(src="/img/red.png" height=30)
+          if typeof message !== 'undefined'
+            div.well  
+              if message.content == "OK"
+                br
+                li= " " + message.name + "'s Status: " + message.content + " @ " + message.location + ", Time: " + new Date(message.postedAt).toGMTString().slice(0, 25)
+                br
+                img(src="/img/green.png" height=30)
+              else if message.content == "HELP"
+                br
+                li= " " + message.name + "'s Status: " + message.content + " @ " + message.location + ", Time: " + new Date(message.postedAt).toGMTString().slice(0, 25)
+                br
+                img(src="/img/yellow.png" height=30)
+              else if message.content == "EMERGENCY" 
+                br
+                li= " " + message.name + "'s Status: " + message.content + " @ " + message.location + ", Time: " + new Date(message.postedAt).toGMTString().slice(0, 25)
+                br
+                img(src="/img/red.png" height=30)
+              else
+                br
+                li= " " + message.name + "'s Status: " + message.content + " @ " + message.location + ", Time: " + new Date(message.postedAt).toGMTString().slice(0, 25)
+                br
+               

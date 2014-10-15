@@ -24,12 +24,12 @@ module.exports = function(app, _, io, participants, passport) {
     failureFlash: true
   }));
 
-  app.post("/status", isLoggedIn, profile_controller.postStatusUpdate);
+  app.post("/status", isLoggedIn, profile_controller.postStatusMessage);
 
   app.get("/people", isLoggedIn, people_controller.getPeople);
   app.get("/profile", isLoggedIn, profile_controller.getProfile);
   app.get("/wall", isLoggedIn, wall_controller.getAllWallMessages);
-  app.post("/wall", isLoggedIn, wall_controller.postWallUpdate);
+  app.post("/wall", isLoggedIn, wall_controller.postWallMessage);
   app.get("/chat", isLoggedIn, chat_controller.getAllMessages);
   app.post("/chat", isLoggedIn, chat_controller.sendMessage);
   app.get("/monitor", isLoggedIn, monitor_controller.getMonitorPage);

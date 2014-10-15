@@ -2,13 +2,14 @@ var bcrypt = require('bcrypt-nodejs');
 var request = require('request');
 var rest_api = require('../../config/rest_api');
 
-function WallMessage(user_name, message, status, location, statusTime){
+function WallMessage(message_id, author, content, status, location, posted_at){
   this.local = {
-    name : user_name,
-    message : message,
+    message_id : message_id,
+    author : author,
+    content : content,
     status : status,
     location : location,
-    statusTime : statusTime
+    posted_at : posted_at
   };
 }
 
@@ -20,7 +21,7 @@ WallMessage.getAllWallMessages = function(callback) {
     }
     if (res.statusCode === 200) {
       var wallMessages = body.map(function(item, idx, arr){
-        return new WallMessage(item.userName, item.message, item.status, item.location, item.createdAt);
+        return new WallMessage(item.messageId, item.author, item.content, item.status, item.location, item.postedAt);
       });
 
       console.log("@@@@@ in Status.getAllWallMessage succeed statuses :" + JSON.stringify(wallMessages));
@@ -34,11 +35,11 @@ WallMessage.getAllWallMessages = function(callback) {
   });
 };
 
-WallMessage.saveNewWallMessage = function(user_name, message, status, location, callback) {
-  console.log("inside save new status method with " + user_name + " " + message + " " + status + " " + location);
+WallMessage.saveNewWallMessage = function(author, content, status, location, callback) {
+  console.log("inside save new status method with " + author + " " + content + " " + status + " " + location);
   var options = {
-    url : rest_api.post_new_wall_message + user_name,
-    body : {userName: user_name, message: message, status: status, location: location},
+    url : rest_api.post_new_wall_message + author,
+    body : {author: author, content: content, status: status, location: location},
     json: true
   };
 
@@ -53,8 +54,8 @@ WallMessage.saveNewWallMessage = function(user_name, message, status, location, 
       callback(res.body, null);
       return;
     }
-    var new_status = new WallMessage(body.userName, body.message, body.status, body.location, body.statusTime, undefined);
-    callback(null, new_status);
+    var new_wall_message = new WallMessage(body.author, body.content, body.status, body.location, body.postAt, undefined);
+    callback(null, new_wall_message);
     return;
   });
 };
