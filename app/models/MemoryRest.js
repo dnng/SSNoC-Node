@@ -56,7 +56,7 @@ Memory.stopMemoryTest = function(user_name, callback) {
 		    }
 		    if (res2.statusCode === 200) {
 		      var memories = body2.map(function(item, idx, arr){
-		        return new Memory(item.usedVolatileMemory, item.remainingVolatileMemory, item.usedPersistentMemory, item.remainingPersistentMemory, item.onlineUsers, item.createAt);
+		        return new Memory(item.usedVolatileMemory, item.remainingVolatileMemory, item.usedPersistentMemory, item.remainingPersistentMemory, item.onlineUsers, item.createdAt);
 		      });
 
 		      callback(null, memories);
@@ -79,7 +79,7 @@ Memory.getAllMemoryCrumbs = function(callback) {
     }
     if (res.statusCode === 200) {
       var memories = body.map(function(item, idx, arr){
-        return new Memory(item.usedVolatileMemory, item.remainingVolatileMemory, item.usedPersistentMemory, item.remainingPersistentMemory, item.onlineUsers, item.createAt);
+        return new Memory(item.usedVolatileMemory, item.remainingVolatileMemory, item.usedPersistentMemory, item.remainingPersistentMemory, item.onlineUsers, item.createdAt);
       });
 
       callback(null, memories);

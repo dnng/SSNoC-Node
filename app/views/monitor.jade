@@ -37,15 +37,15 @@ html
       br
       br
       if ( typeof memories !== 'undefined' && memories !== null )
-        table
+        table.table
           thead
             tr
-              td Time
-              td Used Vol Mem
-              td Rem Vol Mem
-              td Used Pers Mem
-              td Rem Pers Mem
-              td Online Users
+              th Time
+              th Used Vol Mem
+              th Rem Vol Mem
+              th Used Pers Mem
+              th Rem Pers Mem
+              th Online Users
           tbody
             each memory in memories
               if typeof memory !== 'undefined'
