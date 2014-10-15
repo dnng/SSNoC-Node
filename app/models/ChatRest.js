@@ -18,11 +18,14 @@ function Chat(author_name, target_name, message_id, posted_at, content) {
  */
 Chat.sendMessage = function(author_name, target_name, content, callback) {
   console.log("Sending message from " + author_name + " to " + target_name);
+  var date = new Date();
+  //var current_hour = date.getHours();
   var options = {
-    url: rest_api.send_message + this.local.name + "/" + this.local.name,
+    url: rest_api.send_message + author_name + "/" + target_name,
     body: {
       author_name : author_name,
       target_name : target_name,
+      posted_at   : date,
       content     : content
     },
     json: true
@@ -39,10 +42,6 @@ Chat.sendMessage = function(author_name, target_name, content, callback) {
       callback(res.body, null);
       return;
     }
-    /*
-     * TODO: Populate new Chat(body.this, body.that, ...)
-     */
-    var new_chat = new Chat();
     callback(null, new_status);
     return;
   });
@@ -101,88 +100,5 @@ Chat.getChatBuddies = function(){
     }
   });
 };
-
-/*
- *  User.generateHash = function(password) {
- *  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
- *  };
- *
- * User.prototype.isValidPassword = function(password, callback) {
- *   request.post(rest_api.is_password_valid + this.local.name + '/authenticate', {json:true, body:{password:password}}, function(err, res, body) {
- *     if (err || res.statusCode !== 200){
- *       callback(false);
- *       return;
- *     }
- *
- *     callback(true);
- *   });
- * };
- *
- * User.getUser = function(user_name, callback) {
- *   request(rest_api.get_user + user_name, {json:true}, function(err, res, body) {
- *     if (err){
- *       callback(err,null);
- *       return;
- *     }
- *     if (res.statusCode === 200) {
- *       var user = new User(body.userName, body.password);
- *       callback(null, user);
- *       return;
- *     }
- *     if (res.statusCode !== 200) {
- *       callback(null, null);
- *       return;
- *     }
- *   });
- * };
- *
- * User.getAllUsers = function(callback) {
- *   request(rest_api.get_all_users, {json:true}, function(err, res, body) {
- *     if (err){
- *       callback(err,null);
- *       return;
- *     }
- *     if (res.statusCode === 200) {
- *       var users = body.map(function(item, idx, arr){
- *         return new User(item.userName, item.password);
- *       });
- *
- *       users.sort(function(a,b) {
- *         return a.userName < b.userName;
- *       });
- *
- *       console.log("@@@@@ in User.getAllUser succeed users :" + JSON.stringify(users));
- *       callback(null, users);
- *       return;
- *     }
- *     if (res.statusCode !== 200) {
- *       callback(null, null);
- *       return;
- *     }
- *   });
- * };
- *
- * User.saveNewUser = function(user_name, password, callback) {
- *   var options = {
- *     url : rest_api.post_new_user,
- *     body : {userName: user_name, password: password},
- *     json: true
- *   };
- *
- *   request.post(options, function(err, res, body) {
- *     if (err){
- *       callback(err,null);
- *       return;
- *     }
- *     if (res.statusCode !== 200 && res.statusCode !== 201) {
- *       callback(res.body, null);
- *       return;
- *     }
- *     var new_user = new User(body.userName, password, undefined);
- *     callback(null, new_user);
- *     return;
- *   });
- * };
- */
 
 module.exports = Chat;
