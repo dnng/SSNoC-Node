@@ -10,7 +10,10 @@ function Clusters(clusteruser_id){
 
 Clusters.getUserClusters = function(timeWindow,callback) {
 	  request(rest_api.get_user_clusters(timeWindow), {json:true}, function(err, res, body) {
-	    if (err){
+		rest_api.get_user_clusters = function(timeWindow){
+			return host_url + '/usergroups/unconnected/' + timeWindow;
+			}
+		  if (err){
 	      callback(err,null);
 	      return;
 	    }
