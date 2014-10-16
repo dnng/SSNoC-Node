@@ -42,7 +42,7 @@ Chat.sendMessage = function(author_name, target_name, content, callback) {
       callback(res.body, null);
       return;
     }
-    callback(null, new_status);
+    callback(null, null);
     return;
   });
 };
