@@ -21,6 +21,9 @@ html
           div.col-md-3.col-md-offset-6
             button(type="submit" class="btn btn-primary" id="stopPerfTestBtn") Stop Performance Test
       br
+      if ( typeof postsPerSecond !== 'undefined'  && typeof getsPerSecond !== 'undefined' )
+        h3 Performance Results
+          li= " Posts Per Second=" + postsPerSecond + " | Gets Per Second=" + getsPerSecond
       h3 Measure Memory
       div.signup
         br

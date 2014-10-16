@@ -12,7 +12,7 @@ module.exports = function(_, io, participants, passport) {
     
     startPerformanceTest: function(req, res) {
     	Performance.startPerformanceTest(req.session.passport.user.user_name, req.body.testDurationInSecs, function(err, postsPerSecond, getsPerSecond) {
-    		console.log("Back in controller with postsPerSecond:" + postsPerSecond );
+    		console.log("Back in controller with postsPerSecond:" + postsPerSecond + " and getsPerSecond:" + getsPerSecond );
             if (err)
               return res.redirect('/welcome');
             res.render("monitor", {userId: req.session.userId, title:"Monitor", user_name:req.session.passport.user.user_name, postsPerSecond: postsPerSecond, getsPerSecond : getsPerSecond});
