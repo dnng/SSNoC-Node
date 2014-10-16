@@ -17,5 +17,8 @@ module.exports = {
   'post_start_mem_test'            : host_url + '/memory/start',
   'post_stop_mem_test'             : host_url + '/memory/stop',
   'get_all_memory_crumbs_24hr'     : host_url + '/memory',
-  'get_all_memory_crumbs_1hr'      : host_url + '/memory/interval/1'
+  'get_all_memory_crumbs_1hr'      : host_url + '/memory/interval/1',
+  'post_setup_perf_test'           : host_url + '/performance/setup',
+  'post_teardown_perf_test'        : host_url + '/performance/teardown'
+  
 };

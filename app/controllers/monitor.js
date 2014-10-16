@@ -1,6 +1,8 @@
 var LocalStrategy = require('passport-local').Strategy;
 var request = require('request');
+var moment = require('moment');
 var Memory = require('../models/MemoryRest');
+var Performance = require('../models/PerformanceRest');
 
 module.exports = function(_, io, participants, passport) {
   return {
@@ -9,11 +11,20 @@ module.exports = function(_, io, participants, passport) {
     },
     
     startPerformanceTest: function(req, res) {
-        res.render("monitor", {userId: req.session.userId, title:"Monitor", user_name:req.session.passport.user.user_name});
+    	Performance.startPerformanceTest(req.session.passport.user.user_name, req.body.testDurationInSecs, function(err, postsPerSecond, getsPerSecond) {
+    		console.log("Back in controller with postsPerSecond:" + postsPerSecond );
+            if (err)
+              return res.redirect('/welcome');
+            res.render("monitor", {userId: req.session.userId, title:"Monitor", user_name:req.session.passport.user.user_name, postsPerSecond: postsPerSecond, getsPerSecond : getsPerSecond});
+       }); 
     },
 
     stopPerformanceTest: function(req, res) {
-        res.render("monitor", {userId: req.session.userId, title:"Monitor", user_name:req.session.passport.user.user_name});
+    	Performance.stopPerformanceTest(req.session.passport.user.user_name, function(err, messages) {
+            if (err)
+              return res.redirect('/welcome');
+            res.render("monitor", {userId: req.session.userId, title:"Monitor", user_name:req.session.passport.user.user_name});
+       }); 
     }, 
     
     startMemoryTest: function(req, res) {
