@@ -1,7 +1,6 @@
 var LocalStrategy = require('passport-local').Strategy;
 var request = require('request');
 var Analysis = require('../models/AnalysisRest');
-var Clusters = require('../models/AnalysisRest');
 
 module.exports = function(_, io, participants, passport) {
   return {
@@ -10,11 +9,15 @@ module.exports = function(_, io, participants, passport) {
     },
     
     getUserClusters: function(req, res) {
-        Clusters.getUserClusters(function(err, clusternames) {
-            console.log("Clusternames: " + clusternames);
+    	var timeWindow = req.body.timeWindowInHours;
+    	if (timeWindow == "")
+    		timeWindow = 0;
+    	console.log(timeWindow);
+        Analysis.getUserClusters(timeWindow, function(err, clusters) {
+            console.log("Clusters: " + clusters);
             if (err)
               return res.redirect('/welcome');
-            res.render("analysis", {user_name: req.session.passport.user.user_name});
+            res.render("analysis", {user_name: req.session.passport.user.user_name, clusters: clusters});
           });
         },
   };
