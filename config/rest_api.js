@@ -19,7 +19,3 @@ module.exports = {
   'get_all_memory_crumbs_24hr'     : host_url + '/memory',
   'get_all_memory_crumbs_1hr'      : host_url + '/memory/interval/1'
 };
-
-RestAPI.get_user_clusters = function(timeWindow){
-	return host_url + '/usergroups/unconnected/' + timeWindow;
-}
