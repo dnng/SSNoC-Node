@@ -6,27 +6,29 @@ var url           = require('url');
 module.exports = function(_, io, participants, passport) {
   return {
     getAllMessages: function (req, res) {
-      var url_parts  = url.parse(req.url, true);
-      var query      = url_parts.query;
-      var author_name = query.author_name;
-      var target_name = query.target_name;
-      console.log("app.controllers.chat: DEBUG :" + query);
+      console.log("REQUEST1: " + req.param("author_name") + req.param("target_name"));
+      var author_name = req.param("author_name");
+      var target_name = req.param("target_name");
+      console.log("REQUEST2: " + author_name + target_name);
       Chat.getAllChatMessagesBetweenUsers(author_name, target_name, function (err, chats) {
-      console.log(chats);
-        if (chats !== null) {
-          res.json(200, {name: user.local.name});
+        if (chats == null) {
+          res.json(200, {author_name: author_name, target_name: target_name});
         }
         res.render("chat", {userId: req.session.userId, title: "Chats", author_name: author_name, target_name : target_name, chats: chats});
       });
     },
-    sendMessage: function (req, res) {
-      Chat.sendMessage(req.body.author_name, req.body.target_name, req.body.message, function (err, chats) {
-        console.log(chats);
-        if (err)
-          return res.redirect('/welcome');
-        res.render("chat", {userId: req.session.userId, title: "Chats", author_name: req.body.author_name, target_name : req.body.target_name, chats: chats});
-      });
-    }
+    
+    sendMessage: function(req, res, next) {
+    	Chat.sendMessage(req.body.author_name, req.body.target_name, req.body.message, function (err, chats) {
+          if (err)
+          {
+        	  console.log(err);
+        	  return res.redirect('/welcome');
+          }
+          var backURL=req.header('Referer')
+          return res.redirect(backURL);
+        });
+     }
   };
 };
 

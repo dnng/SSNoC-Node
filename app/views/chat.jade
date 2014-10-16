@@ -6,18 +6,22 @@ html
   title SSNoC - Wall
   body
     include includes/navbar.jade
-    div.container
-      br
-      if chats !== null
-        each c in chats
-          div.well
-            div.row
-              li= " " + c.target_name + "' : " + c.content
+    br
     div.container
       form(action='/chat', method='post')
         br
-        textarea.form-control(type='text' class="form-control" name='message' id='message' rows='5' placeholder="Chat with your friend?")
-        input.author_name.form-control(id="author_name" type="hidden" class='form-control' name='name' value=author_name)
-        input.target_name.form-control(id="target_name" type="hidden" class='form-control' name='name' value=target_name)
+        textarea.form-control(type='text' class="form-control" name='message' id='message' rows='2' placeholder="Chat with your friend?")
+        input.author_name.form-control(id="author_name" type="hidden" class='form-control' name='author_name' value=author_name)
+        input.target_name.form-control(id="target_name" type="hidden" class='form-control' name='target_name' value=target_name)
         br
-        button(type="submit" class="btn btn-info btn-lg" id="sendPrivateMessage") Send
+        button(type="submit" class="btn btn-info pull-right" id="sendPrivateMessage") Send
+    div.container
+      br
+      br
+      if ( typeof chats !== 'undefined' && chats !== null )
+        each chat in chats
+          if typeof chat !== 'undefined'
+            div.well
+              br
+              li= " [" + new Date(chat.local.posted_at).toGMTString().slice(0, 25) + "] " + chat.local.author_name + ": " + chat.local.content
+              br
