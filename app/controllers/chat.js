@@ -13,13 +13,14 @@ module.exports = function(_, io, participants, passport) {
       console.log("app.controllers.chat: DEBUG :" + query);
       Chat.getAllChatMessagesBetweenUsers(author_name, target_name, function (err, chats) {
       console.log(chats);
-        if (chats !== null) {
-          res.json(200, {name: user.local.name});
+        if (chats == null) {
+          res.json(200, {name: author_name});
         }
         res.render("chat", {userId: req.session.userId, title: "Chats", author_name: author_name, target_name : target_name, chats: chats});
       });
     },
     sendMessage: function (req, res) {
+    	console.log(req);
       Chat.sendMessage(req.body.author_name, req.body.target_name, req.body.message, function (err, chats) {
         console.log(chats);
         if (err)

@@ -17,7 +17,7 @@ function Chat(author_name, target_name, message_id, posted_at, content) {
  * Send a chat message to another user
  */
 Chat.sendMessage = function(author_name, target_name, content, callback) {
-  console.log("Sending message from " + author_name + " to " + target_name);
+  console.log("Sending message from " + author_name + " to " + target_name + " with content " + content);
   var date = new Date();
   //var current_hour = date.getHours();
   var options = {
@@ -32,6 +32,8 @@ Chat.sendMessage = function(author_name, target_name, content, callback) {
   };
 
   request.post(options, function (err, res, body) {
+	//console.log("error: " + err + ", res: " + res + ", body: " + body ); 
+	//console.log("res.body: " + res.body + res.local);
     if (err) {
       console.log(err);
       callback(err, null);
@@ -52,17 +54,18 @@ Chat.sendMessage = function(author_name, target_name, content, callback) {
  */
 Chat.getAllChatMessagesBetweenUsers = function(author_name, target_name, callback) {
   request(rest_api.get_all_msgs_between_users + author_name + "/" + target_name, {json: true}, function (err, res, body) {
+    console.log("error: " + err + ", res: " + res + ", body: " + body ); 
     if (err) {
       callback(err, null);
       return;
     }
     if (res.statusCode === 200) {
-      var chat_messages = body.map(function (item, idx, arr) {
-        return new Chat(item.author_name, item.target_name, item.message_id, item.posted_at, item.content);
+      var chats = body.map(function (item, idx, arr) {
+        return new Chat(item.author, item.target, item.messageId, item.postedAt, item.content);
       });
 
-      console.log("@@@@@ in Chat.getAllChatMessagesBetweenUsers succeed:" + JSON.stringify(chat_messages));
-      callback(null, chat_messages);
+      console.log("@@@@@ in Chat.getAllChatMessagesBetweenUsers succeed:" + JSON.stringify(chats));
+      callback(null, chats);
       return;
     }
     if (res.statusCode !== 200) {

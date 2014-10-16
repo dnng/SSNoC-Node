@@ -11,7 +11,7 @@ module.exports = {
   'get_all_wall_status_messages'   : host_url + '/messages/wallstatus',
   'post_new_wall_message'          : host_url + '/message/',
   'send_message'                   : host_url + '/message/',
-  'get_all_msgs_between_users'     : host_url + '/message/',
+  'get_all_msgs_between_users'     : host_url + '/messages/',
   'get_chat_buddies'               : host_url + '/message/',
   'get_user_clusters'              : host_url + '/usergroups/unconnected',
   'post_start_mem_test'            : host_url + '/memory/start',
