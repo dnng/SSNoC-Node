@@ -42,21 +42,25 @@ html
             div.well  
               if message.local.content == "OK"
                 br
-                li= " " + message.local.author + "'s Status: " + message.local.content + " @ " + message.local.location + ", Time: " + new Date(message.local.postedAt).toGMTString().slice(0, 25)
+                li
+                  img(src="/img/green.png" height=30)
+                  =" " + message.local.author + "'s Status: " + message.local.content + ", Time: " + new Date(message.local.postedAt).toGMTString().slice(0, 25)
                 br
-                img(src="/img/green.png" height=30)
               else if message.local.content == "HELP"
                 br
-                li= " " + message.local.author + "'s Status: " + message.local.content + " @ " + message.local.location + ", Time: " + new Date(message.local.postedAt).toGMTString().slice(0, 25)
+                li
+                  img(src="/img/yellow.png" height=30)
+                  =" " + message.local.author + "'s Status: " + message.local.content + ", Time: " + new Date(message.local.postedAt).toGMTString().slice(0, 25)
                 br
-                img(src="/img/yellow.png" height=30)
               else if message.local.content == "EMERGENCY" 
                 br
-                li= " " + message.local.author + "'s Status: " + message.local.content + " @ " + message.local.location + ", Time: " + new Date(message.local.postedAt).toGMTString().slice(0, 25)
+                li
+                  img(src="/img/red.png" height=30)
+                  =" " + message.local.author + "'s Status: " + message.local.content + ", Time: " + new Date(message.local.postedAt).toGMTString().slice(0, 25)
                 br
-                img(src="/img/red.png" height=30)
+                
               else
                 br
-                li= " " + message.local.author + "'s Status: " + message.local.content + " @ " + message.local.location + ", Time: " + new Date(message.local.postedAt).toGMTString().slice(0, 25)
+                li= "[" + new Date(message.local.postedAt).toGMTString().slice(0, 25) + "] " + message.local.author + " posted: " + message.local.content
                 br
                
