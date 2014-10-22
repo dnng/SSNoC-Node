@@ -34,33 +34,41 @@ html
         div.col-sm-4
           button(type="submit" class="btn btn-info" id="updateStatusBtn") Share Status
     div.container
-      br
-      br
-      if messages !== null
-        each message in messages
-          if typeof message !== 'undefined'
-            div.well  
-              if message.local.content == "OK"
-                br
-                li
-                  img(src="/img/green.png" height=30)
-                  =" " + message.local.author + "'s Status: " + message.local.content + ", Time: " + new Date(message.local.postedAt).toGMTString().slice(0, 25)
-                br
-              else if message.local.content == "HELP"
-                br
-                li
-                  img(src="/img/yellow.png" height=30)
-                  =" " + message.local.author + "'s Status: " + message.local.content + ", Time: " + new Date(message.local.postedAt).toGMTString().slice(0, 25)
-                br
-              else if message.local.content == "EMERGENCY" 
-                br
-                li
-                  img(src="/img/red.png" height=30)
-                  =" " + message.local.author + "'s Status: " + message.local.content + ", Time: " + new Date(message.local.postedAt).toGMTString().slice(0, 25)
-                br
-                
-              else
-                br
-                li= "[" + new Date(message.local.postedAt).toGMTString().slice(0, 25) + "] " + message.local.author + " posted: " + message.local.content
-                br
-               
+        br
+        br
+        table.table.table-striped
+          if messages !== null
+            thead
+              tr
+                th Time
+                th Status/Message
+            each message in messages 
+              tbody      
+                if typeof message !== 'undefined' 
+                  if message.local.content == "OK"
+                    tr
+                      td  
+                        = "[" + new Date(message.local.postedAt).toGMTString().slice(0, 25) + "] " 
+                      td  
+                        = message.local.author + "'s Status: " + message.local.content + "     "
+                          img(src="/img/green.png" height=30)
+                  else if message.local.content == "HELP"
+                    tr
+                      td
+                        = "[" + new Date(message.local.postedAt).toGMTString().slice(0, 25) + "] "
+                      td
+                        = message.local.author + "'s Status: " + message.local.content + "     "
+                          img(src="/img/yellow.png" height=30)
+                  else if message.local.content == "EMERGENCY"  
+                    tr
+                      td
+                        = "[" + new Date(message.local.postedAt).toGMTString().slice(0, 25) + "] "
+                      td
+                        = message.local.author + "'s Status: " + message.local.content + "     "
+                          img(src="/img/red.png" height=30)
+                  else
+                      tr
+                      td
+                        = "[" + new Date(message.local.postedAt).toGMTString().slice(0, 25) + "] "
+                      td
+                        = message.local.author + " posted: " + message.local.content
