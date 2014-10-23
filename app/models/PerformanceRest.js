@@ -7,7 +7,7 @@ var WallMessage = require('../models/WallRest');
 
 var isPerfTestRunning = false; 
 
-var post_request_limit = 1000;
+var post_request_limit = 100000;
 
 var postsCount = 0;
 var getsCount = 0;
@@ -23,8 +23,6 @@ var getsPerSecond = 0;
 var posts_elapsed_time_in_secs;
 var gets_elapsed_time_in_secs;
 
-var max_test_duration = 600;
-
 
 function Performance(testDurationInSecs, getsPerSecond, postsPerSecond){
   this.local = {
@@ -36,10 +34,14 @@ function Performance(testDurationInSecs, getsPerSecond, postsPerSecond){
 
 Performance.startPerformanceTest = function(user_name, testDurationInSecs, callback) {
 	  var x = 0;
-	  var runCounts = [];
+	  var runPostCounts = [];
+	  var runGetCounts = [];
+	  if (testDurationInSecs == null || testDurationInSecs == 0)
+		  testDurationInSecs = 2;
 	  while(x < post_request_limit)
 	  {
-		  runCounts.push(x++);
+		  runPostCounts.push(x);
+		  runGetCounts.push(x++);
 	  }
 	
 	  var author = "lloyd";
@@ -102,20 +104,29 @@ Performance.startPerformanceTest = function(user_name, testDurationInSecs, callb
 	                },
 	                function(callback) {
 
-	                    async.forEachLimit(runCounts, 10, function(runCount, callback) {
+	                    async.forEachLimit(runPostCounts, 50, function(runCount, callback) {
 	                        if (!isPerfTestRunning || posts_elapsed_time_in_secs > testDurationInSecs) {
-	                            callback();
-	                            return;
+	                        	//runPostCounts=[];
+	                        	callback(true);
+	                        	return;
+	                            //return callback();
+	                        }
+	                        if(runCount % 100 == 0)
+	                        {
+	                        	request.del( rest_api.truncate_test_messages, {json: true} );
+	                        	posts_elapsed_time_in_secs = moment().diff(testPostStartTime) / 1000;
+	                        	postsCount = runCount;
+	                            console.log(moment() + "Elapsed time after test post#" + runCount + ", " + posts_elapsed_time_in_secs);
 	                        }
 	                        request.post(options, function(err, res, body) {
 	                            posts_elapsed_time_in_secs = moment().diff(testPostStartTime) / 1000;
 	                            postsCount = runCount;
-	                            console.log(moment() + "Elapsed time after test post#" + runCount + ", " + posts_elapsed_time_in_secs);
+	                            //console.log(moment() + "Elapsed time after test post#" + runCount + ", " + posts_elapsed_time_in_secs);
 	                            callback();
 	                        })
 
 	                    }, function(err) {
-	                        if (err) return next(err);
+	                        //if (err) return next(err);
 
 	                        posts_elapsed_time_in_secs = moment().diff(testPostStartTime) / 1000;
 	                        postsPerSecond = postsCount / posts_elapsed_time_in_secs
@@ -129,22 +140,28 @@ Performance.startPerformanceTest = function(user_name, testDurationInSecs, callb
 	                },
 	                function(callback) {
 
-	                    async.forEachLimit(runCounts, 10, function(runCount, callback) {
+	                    async.forEachLimit(runGetCounts, 2, function(runCount, callback) {
 	                        if (!isPerfTestRunning || gets_elapsed_time_in_secs > testDurationInSecs) {
-	                            callback();
+	                            callback(true);
 	                            return;
 	                        }
+	                        if(runCount % 10 == 0)
+	                        {
+	                        	gets_elapsed_time_in_secs = moment().diff(testGetStartTime) / 1000;
+	                            getsCount = runCount;
+	                            console.log(moment() + "Elapsed time after test get#" + runCount + ", " + gets_elapsed_time_in_secs);
+	                            }
 	                        request(rest_api.get_all_wall_status_messages, {
 	                            json: true
 	                        }, function(err, res, body) {
 	                            gets_elapsed_time_in_secs = moment().diff(testGetStartTime) / 1000;
 	                            getsCount = runCount;
-	                            console.log(moment() + "Elapsed time after test get#" + runCount + ", " + gets_elapsed_time_in_secs);
+	                            //console.log(moment() + "Elapsed time after test get#" + runCount + ", " + gets_elapsed_time_in_secs);
 	                            callback();
 	                        })
 
 	                    }, function(err) {
-	                        if (err) return next(err);
+	                        //if (err) return next(err);
 
 	                        gets_elapsed_time_in_secs = moment().diff(testGetStartTime) / 1000;
 	                        getsPerSecond = getsCount / gets_elapsed_time_in_secs
@@ -153,13 +170,15 @@ Performance.startPerformanceTest = function(user_name, testDurationInSecs, callb
 	                    })
 	                }
 	            ], function(err) { //This function gets called after the series tasks have called their "task callbacks"
-	                if (err) return next(err);
+	                //if (err) return next(err);
 	                
 	                request.post(rest_api.post_teardown_perf_test, {
 	                    json: true
 	                });
 	                console.log('[' + moment().format() + '] Closing Performance Test');
-	                callback(null, postsPerSecond, getsPerSecond);
+	                
+	                //Round up the requests per second
+	                callback(null, Math.ceil(postsPerSecond), Math.ceil(getsPerSecond));
 	            });
 	  
 };
