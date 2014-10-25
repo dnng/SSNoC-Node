@@ -12,6 +12,7 @@ module.exports = function(_, io, participants, passport) {
         if (err)
           return res.redirect('/welcome');
         Announcement.getAllAnnouncements(function(err, announcements) {
+        	console.log("ANNOUNCEMENTS: " + announcements);
         	if (err)
         		return res.redirect('/welcome');
         	res.render("wall", {userId: req.session.userId, title:"Messages", user_name:req.session.passport.user.user_name, messages: messages, announcements: announcements});

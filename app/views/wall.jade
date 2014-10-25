@@ -18,7 +18,7 @@ html
         div.col-sm-2
           button(type="submit" class="btn btn-info" id="shareAnnouncementBtn") Post Announcement
       br
-    if ( typeof announcements !== 'undefined' && announcements !== null )  
+    if ( typeof announcements !== 'undefined' && announcements !== null && announcements.length !== 0)  
       div.container
         div.panel.panel-warning
           div.panel-heading
@@ -26,7 +26,8 @@ html
           div.panel-body(style="height: 60px;overflow-y: scroll;")
             each announcement in announcements
               if typeof announcement !== 'undefined'
-                p announcement
+                p 
+                  = "[" + announcement.local.author + " @ " + new Date(announcement.local.postedAt).toGMTString().slice(0, 22) + "] " + announcement.local.content
     div.container
       form(action='/wall', method='post')
 
