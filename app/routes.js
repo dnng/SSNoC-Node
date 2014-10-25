@@ -8,6 +8,7 @@ module.exports = function(app, _, io, participants, passport) {
   var chat_controller = require('./controllers/chat')(_, io, participants, passport);
   var monitor_controller = require('./controllers/monitor')(_, io, participants, passport);
   var analysis_controller = require('./controllers/analysis')(_, io, participants, passport);
+  var search_controller = require('./controllers/search')(_, io, participants, passport);
 
   app.get("/", user_controller.getLogin);
 
@@ -39,6 +40,7 @@ module.exports = function(app, _, io, participants, passport) {
   app.post("/stopmem", isLoggedIn, monitor_controller.stopMemoryTest);
   app.post("/startperf", isLoggedIn, monitor_controller.startPerformanceTest);
   app.post("/stopperf", isLoggedIn, monitor_controller.stopPerformanceTest);
+  app.post("/search", isLoggedIn, search_controller.performSearch);
 };
 
 function isLoggedIn(req, res, next) {
