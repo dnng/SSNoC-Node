@@ -7,22 +7,42 @@ html
   body
     include includes/navbar.jade
     div.container
+      form(action='/announcement', method='post')
+        br
+        br
+        div.row.text-center.col-sm-10
+          div.signup
+            textarea.form-control(type='text' class="form-control" name='announcement' id='announcement' rows='3' placeholder="Post an announcement for the community")
+            div.form-group
+              input.name(type='hidden' class="form-control" name='location' id='location' placeholder="Enter your current location")
+        div.col-sm-2
+          button(type="submit" class="btn btn-info" id="shareAnnouncementBtn") Post Announcement
+      br
+    if ( typeof announcements !== 'undefined' && announcements !== null )  
+      div.container
+        div.panel.panel-warning
+          div.panel-heading
+            h3.panel-title Announcement(s)
+          div.panel-body(style="height: 60px;overflow-y: scroll;")
+            each announcement in announcements
+              if typeof announcement !== 'undefined'
+                p announcement
+    div.container
       form(action='/wall', method='post')
-        br
-        br
-        div.row.text-center.col-sm-8
+
+        div.row.text-center.col-sm-10
           div.signup
             textarea.form-control(type='text' class="form-control" name='content' id='content' rows='3' placeholder="Share a message with the community")
             div.form-group
               input.name(type='hidden' class="form-control" name='location' id='location' placeholder="Enter your current location")
-        div.col-sm-4
+        div.col-sm-2
           button(type="submit" class="btn btn-info" id="shareMessageBtn") Share Message
       br
       br
       form(action='/status', method='post')
         br
         br
-        div.row.text-center.col-sm-8
+        div.row.text-center.col-sm-10
           div.signup
             div.form-group
               select.form-control(name='status', id='status')
@@ -31,7 +51,7 @@ html
                 option(value="EMERGENCY") I need help now, as this is a life threatening emergency!
             div.form-group
               input.name(type='hidden' class="form-control" name='location' id='location' placeholder="Enter your current location")
-        div.col-sm-4
+        div.col-sm-2
           button(type="submit" class="btn btn-info" id="updateStatusBtn") Share Status
     div.container
         br

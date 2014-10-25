@@ -20,6 +20,7 @@ module.exports = {
   'get_all_memory_crumbs_1hr'      : host_url + '/memory/interval/1',
   'post_setup_perf_test'           : host_url + '/performance/setup',
   'post_teardown_perf_test'        : host_url + '/performance/teardown',
-  'truncate_test_messages'		   : host_url + '/performance'
-  
+  'truncate_test_messages'		   : host_url + '/performance',
+  'get_all_announcements'          : host_url + '/messages/announcement',
+  'post_new_announcement'          : host_url + '/message/announcement'
 };
