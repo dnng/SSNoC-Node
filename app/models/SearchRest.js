@@ -12,7 +12,7 @@ function Search(context, search_string, user_name, status, anouncement, public_m
 	    public_message : public_message,
 	    private_message : private_message,
 	    sender_name : sender_name,
-	    timestamp : timestamp,
+	    timestamp : timestamp,R
 	    location : location  
 	  };
 	}
