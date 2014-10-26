@@ -1,6 +1,6 @@
 var LocalStrategy = require('passport-local').Strategy;
 var request = require('request');
-
+var Search = require('../models/SearchRest');
 
 module.exports = function(_, io, participants, passport) {
   return {
@@ -13,14 +13,34 @@ module.exports = function(_, io, participants, passport) {
 		  console.log("Search request: " + req.param("search_string") + " in " + req.param("context") + " by " + req.session.passport.user.user_name);
 		  var context = req.body.context;
 		  console.log("Context: " + context);
-		  
-		  
-		  //TO-DO: create a method to fetch and process the stopwords
-		  //request('http://www.textfixer.com/resources/common-english-words.txt');
-		  
+		  		  	   
 		  var search_string = req.body.search_string;
-		  console.log("Search string: " + search_string);		
+		  console.log("Search string: " + search_string);
+		 
+		  // TO-DO: fill in details for stop words
+		  Search.remove_stop_words('http://www.textfixer.com/resources/common-english-words.txt', search_string, res.redirect('/wall'));
+		  console.log("context: " + context);
+		  switch (context) {
+		  case 'Messages':
+			  console.log("*****List of public messages");
+
+			  break;
+		  case 'Directory':
+			  console.log("*****List of Citizens");
+			  break;
+		  case 'Chats':
+			  console.log("*****List of private messages");
+			  break;
+		  case 'Monitor':
+			  console.log("*****Monitor - noop");
+			  break;
+		  case 'Analysis':
+			  console.log("******Analysis - noop");
+			  break;		  
+		  }
+		  
 		  return res.redirect('/welcome');
+		  
     }
 
   };
