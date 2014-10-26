@@ -1,0 +1,23 @@
+doctype html
+html
+  include includes/head.jade
+  script(src='/js/jquery.cookie.js')
+  script(src='/js/analysis.js')
+  title SSNoC - Search results
+  body
+    include includes/navbar.jade
+    div.container
+      br
+      br
+      if ( typeof users !== 'undefined' && users !== null )
+        table.table.table-striped.table-bordered
+          thead
+            tr
+              th  Users Found
+          tbody
+            each user in users
+              if typeof user !== 'undefined'
+                tr
+                  td #{user.local.name}
+
+

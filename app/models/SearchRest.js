@@ -2,6 +2,7 @@ var bcrypt = require('bcrypt-nodejs');
 var request = require('request');
 var rest_api = require('../../config/rest_api');
 var User = require('../models/UserRest');
+var async = require('async');
 
 function Search(context, search_string, user_name, status, anouncement, public_message, private_message, sender_name, timestamp, location){
 	  this.local = {
@@ -18,60 +19,42 @@ function Search(context, search_string, user_name, status, anouncement, public_m
 	  };
 	}
 
-Search.remove_stop_words = function(stop_words_url, search_string, callback) {
+Search.remove_stop_words = function(stop_words_url, search_string) {
 	var stop_words = request(stop_words_url);
 	//var stop_word_array = stop_words.split(",");
 	//console.log("Stop words fetched: " + stop_word_array);
 }
 
-Search.getAllUsers = function(user_names) {
-	var search_results;
+Search.getAllUsers = function(user_names, callback) {
 	console.log("Processing user names:\n");
 	if(typeof user_names != 'undefined') {
-	// TO-DO check if Array.forEach works async
-	user_names.forEach(function(val, index, array) {
-		console.log(index + ': ' + val);
-		// fetch user details
-		User.getUser(val, function(user) {
-	        if (user !== null) {
-	          console.log("fetched user details: " + user);
-	        }
-	      });
-		
-	});		
+
+		var search_operation = [];
+		user_names.forEach(function(val, index, array) {
+			search_operation.push(function (callback) {
+				User.getUser(val, function(err, user) {
+					if (user !== null) {
+						console.log("fetched user details: " + user.local.name);
+					}
+					callback(null, user);
+				});
+			});
+		});
+
+		async.parallel(search_operation, function (error, results) {
+			var users = [];
+			for (var i =0; i < results.length; i++) {
+				if (results[i]) {
+					users.push(results[i]);
+				}
+			}
+			callback(null, users);
+		});
 	}
 	else {
 		console.log("none found");
 	}
-
 }
 
 module.exports = Search;
 
-
-
-process.argv.forEach(function(val, index, array) {
-	  console.log(index + ': ' + val);
-	});
-
-/*User.saveNewUser = function(user_name, password, callback) {
-	  var options = {
-	    url : rest_api.post_new_user,
-	    body : {userName: user_name, password: password},
-	    json: true
-	  };
-
-	  request.post(options, function(err, res, body) {
-	    if (err){
-	      callback(err,null);
-	      return;
-	    }
-	    if (res.statusCode !== 200 && res.statusCode !== 201) {
-	      callback(res.body, null);
-	      return;
-	    }
-	    var new_user = new User(body.userName, password, undefined);
-	    callback(null, new_user);
-	    return;
-	  });
-	};*/
