@@ -1,7 +1,7 @@
 var bcrypt = require('bcrypt-nodejs');
 var request = require('request');
 var rest_api = require('../../config/rest_api');
-
+var User = require('../models/UserRest');
 
 function Search(context, search_string, user_name, status, anouncement, public_message, private_message, sender_name, timestamp, location){
 	  this.local = {
@@ -24,8 +24,35 @@ Search.remove_stop_words = function(stop_words_url, search_string, callback) {
 	//console.log("Stop words fetched: " + stop_word_array);
 }
 
+Search.getAllUsers = function(user_names) {
+	var search_results;
+	console.log("Processing user names:\n");
+	if(typeof user_names != 'undefined') {
+	// TO-DO check if Array.forEach works async
+	user_names.forEach(function(val, index, array) {
+		console.log(index + ': ' + val);
+		// fetch user details
+		User.getUser(val, function(user) {
+	        if (user !== null) {
+	          console.log("fetched user details: " + user);
+	        }
+	      });
+		
+	});		
+	}
+	else {
+		console.log("none found");
+	}
+
+}
+
 module.exports = Search;
 
+
+
+process.argv.forEach(function(val, index, array) {
+	  console.log(index + ': ' + val);
+	});
 
 /*User.saveNewUser = function(user_name, password, callback) {
 	  var options = {
