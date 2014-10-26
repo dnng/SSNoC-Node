@@ -24,7 +24,7 @@ WallMessage.getAllWallMessages = function(callback) {
         return new WallMessage(item.messageId, item.author, item.content, item.status, item.location, item.postedAt);
       });
 
-      console.log("@@@@@ in Status.getAllWallMessage succeed statuses :" + JSON.stringify(wallMessages));
+      console.log("@@@@@ in WallMessage.getAllWallMessages succeed messages :" + JSON.stringify(wallMessages));
       callback(null, wallMessages);
       return;
     }
@@ -36,7 +36,7 @@ WallMessage.getAllWallMessages = function(callback) {
 };
 
 
-WallMessage.getAllWallAndStatusMessages = function(callback) {
+WallMessage.getAllMessages = function(callback) {
 	  request(rest_api.get_all_wall_status_messages, {json:true}, function(err, res, body) {
 	    if (err){
 	      callback(err,null);
@@ -47,7 +47,7 @@ WallMessage.getAllWallAndStatusMessages = function(callback) {
 	        return new WallMessage(item.messageId, item.author, item.content, item.status, item.location, item.postedAt);
 	      });
 
-	      console.log("@@@@@ in Status.getAllWallMessage succeed statuses :" + JSON.stringify(wallMessages));
+	      console.log("@@@@@ in WallMessage.getAllMessages succeed messages :" + JSON.stringify(wallMessages));
 	      callback(null, wallMessages);
 	      return;
 	    }
@@ -60,7 +60,7 @@ WallMessage.getAllWallAndStatusMessages = function(callback) {
 
 
 WallMessage.saveNewWallMessage = function(author, content, location, callback) {
-  console.log("inside save new status method with " + author + " " + content + " " + location);
+  console.log("inside save new wall message method with " + author + " " + content + " " + location);
   var options = {
     url : rest_api.post_new_wall_message + author,
     body : {author: author, content: content, location: location},
