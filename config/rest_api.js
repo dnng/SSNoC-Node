@@ -5,7 +5,7 @@ module.exports = {
   'is_password_valid'              : host_url + '/user/',
   'get_user'                       : host_url + '/user/',
   'post_new_user'                  : host_url + '/user/signup',
-  'post_new_status'                : host_url + '/status/new',
+  'post_new_status'                : host_url + '/status/',
   'get_all_statuses'               : host_url + '/status',
   'get_all_wall_messages'          : host_url + '/messages/wall',
   'get_all_wall_status_messages'   : host_url + '/messages/wallstatus',
