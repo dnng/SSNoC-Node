@@ -1,0 +1,66 @@
+doctype html
+html
+  include includes/head.jade
+  script(src='/js/jquery.cookie.js')
+  script(src='/js/administor.js')
+  title SSNoC - Administor
+  body
+    include includes/navbar.jade
+    div.container
+      form(action='/administor', method='post')
+      br
+      input.name(type='text' class="form-control" name='citizen' id='citizen' placeholder="Which citizen do you want to search")
+      br
+      button(type="submit" class="btn btn-info btn-lg" id="searchCitizen") Search
+      
+    div.container
+        br
+        br
+        if ( typeof citizens !== 'undefined' && citizens !== null )
+          table.table.table-striped.table-bordered
+            thead
+              tr
+                th  Item
+                th  Information
+            tbody
+              each citizen in citizens
+                if typeof citizen !== 'undefined'
+                  tr
+                    td Username
+                    td #{citizen.local.user_name}
+                  tr  
+                    td Password
+                    td #{citizen.local.password}
+                  tr  
+                    td Privilege
+                    td #{citizen.local.privilege}
+                  tr  
+                    td Status
+                    td #{citizen.local.account_status}
+        
+          form.form-horizontal(role='form')
+            div.form-group
+              label.col-sm-2.control-label(for='inputName') Username
+              div.col-sm-10
+                input#inputName.form-control(type='text' class='form-control' name='name' id="userName" placeholder= 'new username')
+            div.form-group
+              label.col-sm-2.control-label(for='inputPassword') Password
+              div.col-sm-10
+                input#inputPassword.form-control(type="password" class="form-control" name="password" id="passwd" placeholder= 'new password')
+            div.form-group
+              label.col-sm-2.control-label(for='inputPrivilege') Privilege
+              div.col-sm-10
+                select.form-control(name='privilege', id='pribilege')
+                  option(value="ADMINISTOR") administor
+                  option(value="CITIZEN") citizen
+                  option(value="COORDINATOR") coordinator
+                  option(value="MONITOR") monitor
+                      div.form-group
+              label.col-sm-2.control-label(for='inputPrivilege') Privilege
+            div.form-group 
+              div.col-sm-10
+                select.form-control(name='accountstastus', id='accountstastus')
+                  option(value="ACTIVE") active
+                  option(value="INACTIVE") inactive
+          br
+          button(type="submit" class="btn btn-info" id="saveChangeBtn") Save
