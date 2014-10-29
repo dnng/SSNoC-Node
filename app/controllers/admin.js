@@ -1,8 +1,8 @@
-var Citizen = require('../models/AdministorRest');
+var Admin = require('../models/AdminRest');
 
 module.exports = function(_, io, participants, passport) {
   return {
-      getAllCitizen: function(req, res) {
+      getAdminPage: function(req, res) {
         res.render("citizen", {userId: req.session.userId, title:"Directory", user_name:req.session.passport.user.user_name, password:req.session.passport.user.password, privilege:req.session.passport.user.privilege, accountStatus:req.session.passport.user.account_status});
 	      }
 	    };

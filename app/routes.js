@@ -43,9 +43,9 @@ module.exports = function(app, _, io, participants, passport) {
   app.post("/startperf", isLoggedIn, monitor_controller.startPerformanceTest);
   app.post("/stopperf", isLoggedIn, monitor_controller.stopPerformanceTest);
   app.post("/search", isLoggedIn, search_controller.performSearch);
-  app.put("/admin", isLoggedIn, admin_controller.updateUser);
-  //post(getUser)
-  //post(updateUser)
+  app.get("/admin", isLoggedIn, admin_controller.getAdminPage);
+  app.post("/admin", isLoggedIn, admin_controller.getUser);
+  app.post("/update", isLoggedIn, admin_controller.updateUser);
 };
 
 function isLoggedIn(req, res, next) {

@@ -2,10 +2,12 @@ var bcrypt = require('bcrypt-nodejs');
 var request = require('request');
 var rest_api = require('../../config/rest_api');
 
-function User(user_name, password){
+function User(user_name, password, privilegeLevel, accountStatus){
   this.local = {
     name : user_name,
-    password : password
+    password : password,
+    privilegeLevel : privilegeLevel,
+    accountStatus : accountStatus
   };
 }
 
@@ -31,7 +33,7 @@ User.getUser = function(user_name, callback) {
       return;
     }
     if (res.statusCode === 200) {
-      var user = new User(body.userName, body.password);
+      var user = new User(body.userName, body.password, body.privilegeLevel, body.accountStatus);
       callback(null, user);
       return;
     }
@@ -50,7 +52,7 @@ User.getAllUsers = function(callback) {
     }
     if (res.statusCode === 200) {
       var users = body.map(function(item, idx, arr){
-        return new User(item.userName, item.password);
+        return new User(item.userName, item.password, item.privilegeLevel, item.accountStatus);
       });
 
       users.sort(function(a,b) {
@@ -71,7 +73,7 @@ User.getAllUsers = function(callback) {
 User.saveNewUser = function(user_name, password, callback) {
   var options = {
     url : rest_api.post_new_user,
-    body : {userName: user_name, password: password},
+    body : {userName: user_name, password: password, privilegeLevel: "Citizen", accountStatus: "Active"},
     json: true
   };
 
@@ -84,10 +86,33 @@ User.saveNewUser = function(user_name, password, callback) {
       callback(res.body, null);
       return;
     }
-    var new_user = new User(body.userName, password, undefined);
+    var new_user = new User(body.userName, password, "Citizen", "Active", undefined);
     callback(null, new_user);
     return;
   });
 };
+
+User.updateUser = function(user_name, password, privilegeLevel, accountStatus, callback) {
+	  var options = {
+	    url : rest_api.update_user + user_name,
+	    body : {userName: user_name, password: password, privilegeLevel: privilegeLevel, accountStatus: accountStatus},
+	    json: true
+	  };
+
+	  request.post(options, function(err, res, body) {
+	    if (err){
+	      callback(err,null);
+	      return;
+	    }
+	    if (res.statusCode !== 200 && res.statusCode !== 201) {
+	      callback(res.body, null);
+	      return;
+	    }
+	    var new_user = new User(body.userName, password, privilegeLevel, accountStatus, undefined);
+	    callback(null, new_user);
+	    return;
+	  });
+	};
+
 
 module.exports = User;
