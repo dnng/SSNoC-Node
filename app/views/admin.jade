@@ -16,11 +16,18 @@ html
               option(value=user.local.name) #{user.local.name}
           button(type="submit" class="btn btn-info btn-lg" id="selectUser") Select
     if ( typeof user !== 'undefined' && user !== null )
+      h2 Update User
       div.container
         form(action='/updateuser', method='post')
-          li= user.local.name
-          li= user.local.privilegeLevel
-          li= user.local.accountStatus
+          input.existing_name.form-control(id="existing_user" type="hidden" class='form-control' name='existing_user' value=user.local.name)
+          div.form-group
+            input.name.form-control(id="user_name" type="text" class='form-control' name='user_name' value=user.local.name)
+          div.form-group
+            input.password.form-control(id="password" type="password" class='form-control' name='password' placeholder="")
+          div.form-group
+            input.password.form-control(id="privilege_level" type="text" class='form-control' name='privilege_level' value=user.local.privilegeLevel)
+          div.form-group
+            input.password.form-control(id="account_status" type="text" class='form-control' name='account_status' value=user.local.accountStatus)
           button(type="submit" class="btn btn-info btn-lg" id="updateUser") Update
       
     

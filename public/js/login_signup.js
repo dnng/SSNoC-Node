@@ -59,7 +59,7 @@ function validateUserNameAndPassword() {
 	  }
 
   if(banned_list.some(function(val) { return val === $('#userName').val().trim() })) {
-    $('#alert').text('Reserverd username. Please choose another username');
+    $('#alert').text('Reserved username. Please choose another username');
     $('#alert').show();
     $('#passport_alert').remove();
     return false;

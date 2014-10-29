@@ -92,14 +92,14 @@ User.saveNewUser = function(user_name, password, callback) {
   });
 };
 
-User.updateUser = function(user_name, password, privilegeLevel, accountStatus, callback) {
+User.updateUser = function(existing_user, user_name, password, privilegeLevel, accountStatus, callback) {
 	  var options = {
-	    url : rest_api.update_user + user_name,
+	    url : rest_api.update_user + existing_user,
 	    body : {userName: user_name, password: password, privilegeLevel: privilegeLevel, accountStatus: accountStatus},
 	    json: true
 	  };
 
-	  request.post(options, function(err, res, body) {
+	  request.put(options, function(err, res, body) {
 	    if (err){
 	      callback(err,null);
 	      return;
@@ -108,8 +108,8 @@ User.updateUser = function(user_name, password, privilegeLevel, accountStatus, c
 	      callback(res.body, null);
 	      return;
 	    }
-	    var new_user = new User(body.userName, password, privilegeLevel, accountStatus, undefined);
-	    callback(null, new_user);
+	    var updated_user = new User(user_name, password, privilegeLevel, accountStatus, undefined);
+	    callback(null, updated_user);
 	    return;
 	  });
 	};
