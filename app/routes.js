@@ -45,7 +45,7 @@ module.exports = function(app, _, io, participants, passport) {
   app.post("/search", isLoggedIn, search_controller.performSearch);
   app.get("/admin", isLoggedIn, admin_controller.getAdminPage);
   app.post("/admin", isLoggedIn, admin_controller.getUser);
-  app.post("/update", isLoggedIn, admin_controller.updateUser);
+  app.post("/updateuser", isLoggedIn, admin_controller.updateUser);
 };
 
 function isLoggedIn(req, res, next) {

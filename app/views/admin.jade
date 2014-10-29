@@ -6,12 +6,21 @@ html
   title SSNoC - Admin
   body
     include includes/navbar.jade
+    br
+    br
     if ( typeof users !== 'undefined' && users !== null )
       div.container
         form(action='/admin', method='post')
-        br
-        input.name(type='text' class="form-control" name='citizen' id='citizen' placeholder="Which citizen do you want to search")
-        br
-        button(type="submit" class="btn btn-info btn-lg" id="searchCitizen") Search
+          select(name='existing_user')
+            each user in users
+              option(value=user.local.name) #{user.local.name}
+          button(type="submit" class="btn btn-info btn-lg" id="selectUser") Select
+    if ( typeof user !== 'undefined' && user !== null )
+      div.container
+        form(action='/updateuser', method='post')
+          li= user.local.name
+          li= user.local.privilegeLevel
+          li= user.local.accountStatus
+          button(type="submit" class="btn btn-info btn-lg" id="updateUser") Update
       
     

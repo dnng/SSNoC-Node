@@ -14,10 +14,10 @@ module.exports = function(_, io, participants, passport) {
     },
     
     getUser: function(req, res, next) {
-        User.getUser(req.session.passport.user.user_name, function(err, user) {
+        User.getUser(req.body.existing_user, function(err, user) {
           if (err)
             return res.redirect('/welcome');
-          res.render("admin", {userId: req.session.userId, title:"Users", user_name:req.session.passport.user.user_name, user_details: user});
+          res.render("admin", {userId: req.session.userId, title:"Users", user_name:req.session.passport.user.user_name, user: user});
         });
       },
 
