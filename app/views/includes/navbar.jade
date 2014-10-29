@@ -25,15 +25,24 @@ nav.navbar.navbar-default.navbar-fixed-top(role="navigation")#top-navbar
       li
         a(href="/welcome")
           strong Help
-      li
-        a(href="/monitor")
-          strong Monitor
-      li
-        a(href="/analysis")
-          strong Analyze
-      li
-        a(href="/admin")
-          strong Admin
+      if session.passport.user.privilege == "Coordinator"
+        li
+          a(href="/analysis")
+            strong Analyze
+      if session.passport.user.privilege == "Monitor"
+        li
+          a(href="/monitor")
+            strong Monitor
+      if session.passport.user.privilege == "Administrator"
+        li
+          a(href="/analysis")
+            strong Analyze
+        li
+          a(href="/monitor")
+            strong Monitor
+        li
+          a(href="/admin")
+            strong Admin
       li
         a(href="/logout")
           strong Logout

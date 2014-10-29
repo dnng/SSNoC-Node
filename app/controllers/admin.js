@@ -5,6 +5,7 @@ var request       = require('request');
 module.exports = function(_, io, participants, passport) {
   return {
 	getAdminPage: function(req, res) {
+		console.log(req.session);
         User.getAllUsers(function(err, users) {
         console.log("USERS: " + users);
         if (err)

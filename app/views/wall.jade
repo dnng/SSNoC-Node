@@ -6,17 +6,19 @@ html
   title SSNoC - Wall
   body
     include includes/navbar.jade
+    br
     div.container
-      form(action='/announcement', method='post')
-        br
-        br
-        div.row.text-center.col-sm-10
-          div.signup
-            textarea.form-control(type='text' class="form-control" name='announcement' id='announcement' rows='3' placeholder="Post an announcement for the community")
-            div.form-group
-              input.name(type='hidden' class="form-control" name='location' id='location' placeholder="Enter your current location")
-        div.col-sm-2
-          button(type="submit" class="btn btn-info" id="shareAnnouncementBtn") Post Announcement
+      if session.passport.user.privilege == "Coordinator" || session.passport.user.privilege == "Administrator"
+        form(action='/announcement', method='post')
+          br
+          br
+          div.row.text-center.col-sm-10
+            div.signup
+              textarea.form-control(type='text' class="form-control" name='announcement' id='announcement' rows='3' placeholder="Post an announcement for the community")
+              div.form-group
+                input.name(type='hidden' class="form-control" name='location' id='location' placeholder="Enter your current location")
+          div.col-sm-2
+            button(type="submit" class="btn btn-info" id="shareAnnouncementBtn") Post Announcement
       br
     if ( typeof announcements !== 'undefined' && announcements !== null && announcements.length !== 0)  
       div.container
