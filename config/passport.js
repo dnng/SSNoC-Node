@@ -4,7 +4,7 @@ var User = require('../app/models/UserRest');
 
 module.exports = function(passport) {
   passport.serializeUser(function(user, done) {
-    done(null, {user_name: user.local.name});
+    done(null, {user_name: user.local.name, privilege: user.local.privilegeLevel});
   });
 
   passport.deserializeUser(function(user_info, done) {
