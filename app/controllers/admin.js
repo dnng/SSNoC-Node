@@ -22,7 +22,7 @@ module.exports = function(_, io, participants, passport) {
       },
 
     updateUser: function(req, res, next) {
-        User.updateUser(req.body.existing_user, req.body.user_name, req.body.password, req.body.privilege_level, req.body.account_status, function(err, updated_user) {
+        User.updateUser(req.body.existing_user, req.body.usr_name, req.body.password, req.body.privilege_level, req.body.account_status, function(err, updated_user) {
           if (err)
           {
         	  console.log(err);

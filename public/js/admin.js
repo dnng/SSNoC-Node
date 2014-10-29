@@ -1,4 +1,16 @@
+function init() {
+  $('#updateUserBtn').click(function() {
+    if( !validateUserNameAndPassword() ) {
+      return false;
+    }
 
+    return true;
+  });
+
+  $('#alert').hide();
+}
+
+$(document).on('ready', init);
 
 var banned_list = [ "about", "access", "account", "accounts", "add", "address",
     "adm", "admin", "administration", "adult", "advertising", "affiliate",
@@ -41,55 +53,32 @@ var banned_list = [ "about", "access", "account", "accounts", "add", "address",
     "you", "yourname", "yourusername", "yoursite", "yourdomain" ];
 
 function validateUserNameAndPassword() {
-  if($('#userName').val().trim() == "") {
+  console.log($('#usr_name').val());
+  console.log($('#password').val());
+  
+  if($('#usr_name').val().trim() == "") {
     $('#alert').text('Please provide a username to continue');
     $('#alert').show();
-    $('#passport_alert').remove();
     return false;
   }
   
-  if($('#userName').val().trim().length < 3) {
+  if($('#usr_name').val().trim().length < 3) {
 	    $('#alert').text('Username is too short. Please input at least 3 characters');
 	    $('#alert').show();
-	    $('#passport_alert').remove();
 	    return false;
 	  }
 
-  if(banned_list.some(function(val) { return val === $('#userName').val().trim() })) {
-    $('#alert').text('Reserverd username. Please choose another username');
+  if(banned_list.some(function(val) { return val === $('#usr_name').val().trim() })) {
+    $('#alert').text('Reserved username. Please choose another username');
     $('#alert').show();
-    $('#passport_alert').remove();
     return false;
   }
-
-  if( ($('#passwd').val().trim() == "")) {
-    $('#alert').text("Please provide a password to continue");
-    $('#alert').show();
-    $('#passport_alert').remove();
-    return false;
-  }
-
-
-  if( ($('#passwd').val().trim().length < 4)) {
-    $('#alert').text("Password is too short. Please input at least 4 characters");
-    $('#alert').show();
-    $('#passport_alert').remove();
-    return false;
-  }
-
-  if( $('#passwdRe').val().trim() == "" ) {
-    $('#alert').text("Please re-enter password to continue");
-    $('#alert').show();
-    $('#passport_alert').remove();
-    return false;
-  }
-
-  if( $('#passwd').val() != $('#passwdRe').val() ) {
-    $('#alert').text('Passwords do not match');
-    $('#alert').show();
-    $('#passport_alert').remove();
-    return false;
-  }
+  
+  if( ($('#password').val().trim() != "") && ($('#password').val().trim().length < 4)) {
+	    $('#alert').text("Password is too short. Please input at least 4 characters");
+	    $('#alert').show();
+	    return false;
+	  }
 
   return true;
 }
