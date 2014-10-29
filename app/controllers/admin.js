@@ -1,29 +1,35 @@
-var Admin = require('../models/AdminRest');
+var LocalStrategy = require('passport-local').Strategy;
+var User   = require('../models/UserRest');
+var request       = require('request');
 
 module.exports = function(_, io, participants, passport) {
   return {
-      getAdminPage: function(req, res) {
-        res.render("citizen", {userId: req.session.userId, title:"Directory", user_name:req.session.passport.user.user_name, password:req.session.passport.user.password, privilege:req.session.passport.user.privilege, accountStatus:req.session.passport.user.account_status});
-	      }
-	    };
-	  };
-
-	  getUser : function(req, res) {
-        var user_name = req.session.passport.user.user_name;
-        User.getUser(user_name, function(err, user) {
-          if (user !== null) {
-            res.json(200, {name:user.local.name});
-          }
+	getAdminPage: function(req, res) {
+        User.getAllUsers(function(err, users) {
+        console.log("USERS: " + users);
+        if (err)
+          return res.redirect('/welcome');
+        res.render("admin", {userId: req.session.userId, title:"Users", user_name:req.session.passport.user.user_name, users: users});
         });
-      }
-	  
-      updateCitizen: function(req, res, next) {
-	    Citizen.saveCitizenNewInformation(req.session.passport.user.user_name, req.session.passport.user.password, req.session.passport.user.privilege, req.session.passport.user.account_status function(err, new_user) {
-	      if (err)
-	        return res.redirect('/welcome');
-	      return res.redirect('/administor');
-	    });
-	  },
+    },
+    
+    getUser: function(req, res, next) {
+        User.getUser(req.session.passport.user.user_name, function(err, user) {
+          if (err)
+            return res.redirect('/welcome');
+          res.render("admin", {userId: req.session.userId, title:"Users", user_name:req.session.passport.user.user_name, user_details: user});
+        });
+      },
 
-// getAllCitizen
-// updateCitizen
+    updateUser: function(req, res, next) {
+        User.updateUser(req.body.existing_user, req.body.user_name, req.body.password, req.body.privilege_level, req.body.account_status, function(err, updated_user) {
+          if (err)
+          {
+        	  console.log(err);
+        	  return res.redirect('/welcome');
+          }
+          return res.redirect('/admin');
+        });
+     }
+  };
+};
