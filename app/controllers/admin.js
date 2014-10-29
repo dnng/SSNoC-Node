@@ -2,7 +2,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var User   = require('../models/UserRest');
 var request       = require('request');
 
-module.exports = function(_, io, participants, passport) {
+module.exports = function(_, io, participants, passport, refreshAllUsers) {
   return {
 	getAdminPage: function(req, res) {
 		console.log(req.session);
@@ -29,6 +29,7 @@ module.exports = function(_, io, participants, passport) {
         	  console.log(err);
         	  return res.redirect('/welcome');
           }
+          refreshAllUsers(participants, function() {console.log("Successfully refreshed all users");});
           return res.redirect('/admin');
         });
      }

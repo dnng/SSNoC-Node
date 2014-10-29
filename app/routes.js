@@ -9,7 +9,7 @@ module.exports = function(app, _, io, participants, passport) {
   var monitor_controller = require('./controllers/monitor')(_, io, participants, passport);
   var analysis_controller = require('./controllers/analysis')(_, io, participants, passport);
   var search_controller = require('./controllers/search')(_, io, participants, passport);
-  var admin_controller = require('./controllers/admin')(_, io, participants, passport);
+  var admin_controller = require('./controllers/admin')(_, io, participants, passport, refreshAllUsers);
 
   app.get("/", user_controller.getLogin);
 
