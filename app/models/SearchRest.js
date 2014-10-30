@@ -3,6 +3,8 @@ var request = require('request');
 var rest_api = require('../../config/rest_api');
 var User = require('../models/UserRest');
 var async = require('async');
+var WallMessage   = require('../models/WallRest');
+var Chat   = require('../models/ChatRest');
 
 function Search(context, search_string, user_name, status, anouncement, public_message, private_message, sender_name, timestamp, location){
 	  this.local = {

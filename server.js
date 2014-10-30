@@ -34,7 +34,7 @@ app.use(function(req,res,next){
     next();
 });
 
-User.getAllUsers(function(err, users) {
+User.getAllActiveUsers(function(err, users) {
   if (!err && users && users.length > 0) {
     users.forEach(function(user) {
       participants.all.push({userName : user.local.name});

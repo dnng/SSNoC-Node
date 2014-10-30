@@ -70,6 +70,32 @@ User.getAllUsers = function(callback) {
   });
 };
 
+User.getAllActiveUsers = function(callback) {
+	  request(rest_api.get_all_active_users, {json:true}, function(err, res, body) {
+	    if (err){
+	      callback(err,null);
+	      return;
+	    }
+	    if (res.statusCode === 200) {
+	      var users = body.map(function(item, idx, arr){
+	        return new User(item.userName, item.password, item.privilegeLevel, item.accountStatus);
+	      });
+
+	      users.sort(function(a,b) {
+	        return a.userName < b.userName;
+	      });
+
+	      console.log("@@@@@ in User.getAllActiveUser succeed users :" + JSON.stringify(users));
+	      callback(null, users);
+	      return;
+	    }
+	    if (res.statusCode !== 200) {
+	      callback(null, null);
+	      return;
+	    }
+	  });
+	};
+
 User.saveNewUser = function(user_name, password, callback) {
   var options = {
     url : rest_api.post_new_user,

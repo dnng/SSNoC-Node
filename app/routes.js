@@ -57,7 +57,7 @@ function isLoggedIn(req, res, next) {
 
 function refreshAllUsers(participants, callback) {
   participants.all = [];
-  User.getAllUsers(function(err, users) {
+  User.getAllActiveUsers(function(err, users) {
     users.forEach(function(user) {
       participants.all.push({'userName' : user.local.name});
     });
