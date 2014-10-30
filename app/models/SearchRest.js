@@ -21,11 +21,11 @@ function Search(context, search_string, user_name, status, anouncement, public_m
 	  };
 	}
 
-Search.remove_stop_words = function(stop_words_url, search_string) {
+/*Search.remove_stop_words = function(stop_words_url, search_string) {
 	var stop_words = request(stop_words_url);
 	var stop_word_array = stop_words.split(",");
 	console.log("Stop words fetched: " + stop_word_array);
-}
+}*/
 
 function status_to_process(token, flag){
 	this.local = {
