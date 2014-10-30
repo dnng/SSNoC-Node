@@ -20,11 +20,11 @@ module.exports = function(_, io, participants, passport) {
 		  // TO-DO: fill in details for stop words
 		  Search.remove_stop_words('http://www.textfixer.com/resources/common-english-words.txt', search_string, res.redirect('/wall'));
 		  //TO-DO: handle spaces better
-		  var search_tokens = search_string.split(/[\s+,]+/);
+		  /*var search_tokens = search_string.split(/[\s+,]+/);
 		  search_tokens.forEach(function(val, index, array) {
 			  	val.trim();
 				console.log(index + ': ' + val);
-			})
+			})*/
 		  console.log ("search tokens: " + search_tokens);
 		  
 		  console.log("context: " + context);
