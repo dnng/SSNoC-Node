@@ -36,7 +36,7 @@ Status.getAllStatuses = function(callback) {
 Status.saveNewStatus = function(user_name, status, location, callback) {
   console.log("inside save new status method with " + user_name + " " + status + " " + location);
   var options = {
-    url : rest_api.post_new_status,
+    url : rest_api.post_new_status + user_name,
     body : {userName: user_name, status: status, location: location},
     json: true
   };

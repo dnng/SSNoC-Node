@@ -3,6 +3,8 @@ var request = require('request');
 var rest_api = require('../../config/rest_api');
 var User = require('../models/UserRest');
 var async = require('async');
+var WallMessage   = require('../models/WallRest');
+var Chat   = require('../models/ChatRest');
 
 function Search(context, search_string, user_name, status, anouncement, public_message, private_message, sender_name, timestamp, location){
 	  this.local = {
@@ -95,5 +97,71 @@ Search.getAllUsers = function(search_tokens, callback) {
 	}
 }
 
+///Public Message
+Search.getAllMessages = function(public_message) {
+	console.log("--------------------------------------------------------");
+	console.log("---------------------In getAllmessages---------------------");
+	console.log("--------------------------------------------------------");
+	var search_results;
+	console.log("Processing public_message:\n");
+	console.log(public_message);
+	if (typeof public_message != 'undefined') {
+		// TO-DO check if Array.forEach works async
+		public_message.forEach	(
+			function(val, index, array) {
+				console.log('\nval: '+val+ '\nindex: '+index +'\narray: '+array);
+				console.log(index + ': ' + val);
+			
+				// fetch user details
+				WallMessage.getAllMessages(
+				function(err, wallMessage){
+				//	if (messageid!==Null){
+						console.log("fetched user details:wallMessage");
+				//}
+				}
+				);
+			}
+		);
+	} else {
+		console.log("none found");
+	}
+}
+
+
+//Private Message
+Search.getAllChatMessagesBetweenUsers = function(private_message) {
+	console.log("--------------------------------------------------------");
+	console.log("---------------------In getAllPrivatemessages---------------------");
+	console.log("--------------------------------------------------------");
+	var search_results;
+	console.log("Processing private_message:\n");
+	console.log(private_message);
+	if (typeof private_message != 'undefined') {
+		// TO-DO check if Array.forEach works async
+		private_message.forEach	(
+			function(val, index, array) {
+				console.log('\nval: '+val+ '\nindex: '+index +'\narray: '+array);
+				console.log(index + ': ' + val);
+			
+				// fetch user details
+				Chat.getAllChatMessagesBetweenUsers(
+				author_name, target_name,function(err,chats) {
+					if (author_name!==Null){
+						console.log("fetched message details: " + chats);
+				} 
+				}
+				);
+			}
+		);
+	} else {
+		console.log("none found");
+	}
+}
 module.exports = Search;
+
+process.argv.forEach(function(val, index, array) {
+	console.log("------");
+	console.log(index + ': ' + val);
+});
+
 

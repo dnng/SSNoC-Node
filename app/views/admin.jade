@@ -1,0 +1,56 @@
+doctype html
+html
+  include includes/head.jade
+  script(src='/js/jquery.cookie.js')
+  script(src='/js/admin.js')
+  title SSNoC - Admin
+  body
+    include includes/navbar.jade
+    br
+    br
+    if ( typeof users !== 'undefined' && users !== null )
+      div.container
+        h3.text-center Administration
+        form(action='/admin', method='post').form-horizontal
+          div.form-group
+            label.control-label.col-sm-3 Select a User to Update
+            div.col-sm-8
+              select(name='existing_user').form-control
+                each user in users
+                  option(value=user.local.name) #{user.local.name}
+          div.form-group
+            div.col-sm-offset-3.col-sm-8
+              button(type="submit" class="btn btn-info" id="selectUser") Select
+    if ( typeof user !== 'undefined' && user !== null )
+      div.container
+        h3.text-center Update User
+        div.alert.alert-danger#alert
+        br
+        form(action='/updateuser', method='post').form-horizontal
+          input.existing_name.form-control(id="existing_user" type="hidden" class='form-control' name='existing_user' value=user.local.name)
+          div.form-group
+            label.control-label.col-sm-3 User Name
+            div.col-sm-8
+              input.name.form-control(id="usr_name" type="text" class='form-control' name='usr_name' value=user.local.name)
+          div.form-group
+            label.control-label.col-sm-3 Password
+            div.col-sm-8
+              input.password.form-control(id="password" type="password" class='form-control' name='password' placeholder="")
+          div.form-group
+            label.control-label.col-sm-3 Privilege
+            div.col-sm-8
+              select(id="privilege_level" name='privilege_level').form-control
+                option(value="Citizen", selected=(user.local.privilegeLevel == "Citizen")) Citizen
+                option(value="Coordinator", selected=(user.local.privilegeLevel == "Coordinator")) Coordinator
+                option(value="Monitor", selected=(user.local.privilegeLevel == "Monitor")) Monitor
+                option(value="Administrator", selected=(user.local.privilegeLevel == "Administrator")) Administrator
+          div.form-group
+            label.control-label.col-sm-3 Status
+            div.col-sm-8
+              select(id="account_status" name='account_status').form-control
+                option(value="Active", selected=(user.local.accountStatus == "Active")) Active
+                option(value="Inactive", selected=(user.local.accountStatus == "Inactive")) Inactive
+          div.col-sm-4.col-sm-offset-4
+            button(type="submit" class="btn btn-info btn-block" id="updateUserBtn") Update
+      
+    

@@ -29,8 +29,12 @@ app.use(express.session({secret : 'ssnocwebapplication', cookie : {maxAge : 3600
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+app.use(function(req,res,next){
+    res.locals.session = req.session;
+    next();
+});
 
-User.getAllUsers(function(err, users) {
+User.getAllActiveUsers(function(err, users) {
   if (!err && users && users.length > 0) {
     users.forEach(function(user) {
       participants.all.push({userName : user.local.name});
