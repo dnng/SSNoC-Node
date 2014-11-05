@@ -5,17 +5,15 @@ nav.navbar.navbar-default.navbar-fixed-top(role="navigation")#top-navbar
       span.icon-bar
       span.icon-bar
     p.navbar-brand
-    form(action='/search', method='post')
-      .form-group
-      .input-group
+  div.navbar-collapse.collapse
+    form.navbar-form.navbar-left(action='/search', method='post', role="search")
+      div.form-group
         input.user_name.form-control(id="user_name" type="hidden" class='form-control' name='user_name' value=user_name)
         input.search_string.form-control(type='search', name='search_string' placeholder='#{title}' value=search_string)
         input.context.form-control(type='hidden' class="form-control" name='context' id='context' placeholder="Search context" value='#{title}')
-        button.btn.btn-default.btn-sm(type='submit')
+        button.btn.btn-default(type='submit')
           span.glyphicon.glyphicon-search
-  div.navbar-collapse.collapse
     ul.nav.nav-justified#nav_list
-    
       li
         a(href="/wall")
           strong Wall
