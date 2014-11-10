@@ -5,6 +5,7 @@ var User = require('../models/UserRest');
 var async = require('async');
 var WallMessage   = require('../models/WallRest');
 var Chat   = require('../models/ChatRest');
+var Announcement = require('../models/AnnouncementRest');
 
 var stop_words = [ "a", "able", "about", "across", "after", "all", "almost", 
                    "also", "am", "among", "an", "and", "any", "are", "as", "at", 
@@ -110,7 +111,6 @@ Search.getAllMessages = function(public_message) {
 	}
 }
 
-
 //Private Message
 Search.getAllChatMessagesBetweenUsers = function(private_message) {
 	console.log("--------------------------------------------------------");
@@ -140,6 +140,36 @@ Search.getAllChatMessagesBetweenUsers = function(private_message) {
 		console.log("none found");
 	}
 }
+
+///Announcements
+Search.searchAllAnnouncements = function(filtered_search_tokens, callback) {
+	if(filtered_search_tokens.length < 1) {
+		//should send a message saying no search results
+	}
+	
+	var announcement_results = [];
+	
+	//pull out all announcements and filter them
+	Announcement.getAllAnnouncements(function(err, announcements) {
+    	console.log("ANNOUNCEMENTS: " + announcements);
+    	if (err) {
+    		return res.redirect('/welcome');
+    	}
+    	
+    	announcements.forEach(function(announcement) {
+    		for(i=0; i<filtered_search_tokens.length; i++)
+    		{
+    			if(announcement.local.content.indexOf(filtered_search_tokens[i]) > -1) {
+    				announcement_results.push(announcement);
+    				break;
+    			}
+    		}
+    	});
+    	console.log("Search Results::Announcements::" + JSON.stringify(announcement_results));
+    	//callback(announcement_results);
+    });
+}
+
 module.exports = Search;
 
 process.argv.forEach(function(val, index, array) {

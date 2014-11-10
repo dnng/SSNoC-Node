@@ -18,16 +18,17 @@ module.exports = function(_, io, participants, passport) {
 			
 			switch (context) {
 			  case 'Messages':
-				  console.log("*****List of public messages");
-				  Search.getAllMessages(search_tokens);
+				  console.log("*****List of public messages and announcements");
+				  Search.searchAllAnnouncements(filtered_search_tokens);
+				  //Search.getAllMessages(filtered_search_tokens);
 				  break;
 			  case 'Directory':
 				  console.log("*****List of Citizens");
-				  Search.getAllUsers(search_tokens);
+				  Search.getAllUsers(filtered_search_tokens);
 				  break;
 			  case 'Chats':
 				  console.log("*****List of private messages");
-				  Search.getAllChatMessagesBetweenUsers(search_tokens);
+				  Search.getAllChatMessagesBetweenUsers(filtered_search_tokens);
 				  break;
 			  case 'Welcome':
 				  console.log("*****Welcome - nothing to search here, go back to where you came from");
@@ -43,7 +44,7 @@ module.exports = function(_, io, participants, passport) {
 				  break;
 			  case 'Users':
 				  console.log("*****Admin - List of Citizens");
-				  Search.getAllUsers(search_tokens);
+				  Search.getAllUsers(filtered_search_tokens);
 				  break;
 			  }
 		  });
