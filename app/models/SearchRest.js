@@ -6,6 +6,22 @@ var async = require('async');
 var WallMessage   = require('../models/WallRest');
 var Chat   = require('../models/ChatRest');
 
+var stop_words = [ "a", "able", "about", "across", "after", "all", "almost", 
+                   "also", "am", "among", "an", "and", "any", "are", "as", "at", 
+                   "be", "because", "been", "but", "by", "can", "cannot", "could", 
+                   "dear", "did", "do", "does", "either", "else", "ever", "every", 
+                   "for", "from", "get", "got", "had", "has", "have", "he", "her", 
+                   "hers", "him", "his", "how", "however", "i", "if", "in", "into", 
+                   "is", "it", "its", "just", "least", "let", "like", "likely", 
+                   "may", "me", "might", "most", "must", "my", "neither", "no", 
+                   "nor", "not", "of", "off", "often", "on", "only", "or", "other", 
+                   "our", "own", "rather", "said", "say", "says", "she", "should", 
+                   "since", "so", "some", "than", "that", "the", "their", "them", 
+                   "then", "there", "these", "they", "this", "tis", "to", "too", 
+                   "twas", "us", "wants", "was", "we", "were", "what", "when", 
+                   "where", "which", "while", "who", "whom", "why", "will", "with", 
+                   "would", "yet", "you", "your" ];
+
 function Search(context, search_string, user_name, status, anouncement, public_message, private_message, sender_name, timestamp, location){
 	  this.local = {
 	    context : context, 
@@ -21,10 +37,16 @@ function Search(context, search_string, user_name, status, anouncement, public_m
 	  };
 	}
 
-Search.remove_stop_words = function(stop_words_url, search_string) {
-	var stop_words = request(stop_words_url);
-	//var stop_word_array = stop_words.split(",");
-	//console.log("Stop words fetched: " + stop_word_array);
+
+Search.strip_stop_words = function(search_tokens, callback) {
+	console.log("Processing search tokens: " + search_tokens);
+	var filtered_search_tokens = [];
+	search_tokens.forEach(function(val, index, array) {
+	  	if(stop_words.indexOf(val) < 0) filtered_search_tokens.push(val);
+	});
+
+	console.log("Filtered search tokens: " + filtered_search_tokens);
+	callback(filtered_search_tokens);
 }
 
 Search.getAllUsers = function(user_names, callback) {
