@@ -143,11 +143,11 @@ Search.getAllChatMessagesBetweenUsers = function(private_message) {
 
 ///Announcements
 Search.searchAllAnnouncements = function(filtered_search_tokens, callback) {
-	if(filtered_search_tokens.length < 1) {
-		//should send a message saying no search results
-	}
-	
 	var announcement_results = [];
+	if(filtered_search_tokens.length < 1) {
+		//no search results
+		callback(announcement_results);
+	}
 	
 	//pull out all announcements and filter them
 	Announcement.getAllAnnouncements(function(err, announcements) {
@@ -166,7 +166,7 @@ Search.searchAllAnnouncements = function(filtered_search_tokens, callback) {
     		}
     	});
     	console.log("Search Results::Announcements::" + JSON.stringify(announcement_results));
-    	//callback(announcement_results);
+    	callback(announcement_results);
     });
 }
 

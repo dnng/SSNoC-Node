@@ -2,22 +2,24 @@ doctype html
 html
   include includes/head.jade
   script(src='/js/jquery.cookie.js')
-  script(src='/js/analysis.js')
+  script(src='/js/jquery-1.9.1.min.js')
+  script(src='/js/jquery.dataTables.js')
+  link(rel='stylesheet', href='/css/jquery.dataTables.css')
+  script(src='/js/search.js')
   title SSNoC - Search results
   body
     include includes/navbar.jade
     div.container
       br
       br
-      if ( typeof users !== 'undefined' && users !== null )
-        table.table.table-striped.table-bordered
-          thead
-            tr
-              th  Users Found
-          tbody
-            each user in users
-              if typeof user !== 'undefined'
-                tr
-                  td #{user.local.name}
-
-
+      if ( typeof announcement_results !== 'undefined' && announcement_results !== null && announcement_results.length !== 0)  
+        div.container
+          table.table(id='tbl_announcements')
+            thead
+              tr
+                th Announcement(s)
+            tbody
+              each announcement in announcement_results
+                if typeof announcement !== 'undefined'
+                  tr
+                    td= "[" + announcement.local.author + " @ " + new Date(announcement.local.postedAt).toGMTString().slice(0, 22) + "] " + announcement.local.content

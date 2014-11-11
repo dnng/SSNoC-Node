@@ -19,8 +19,14 @@ module.exports = function(_, io, participants, passport) {
 			switch (context) {
 			  case 'Messages':
 				  console.log("*****List of public messages and announcements");
-				  Search.searchAllAnnouncements(filtered_search_tokens);
-				  //Search.getAllMessages(filtered_search_tokens);
+				  Search.searchAllAnnouncements(filtered_search_tokens, function(announcement_results) {
+					  //Chain all the search calls
+					  //Search.getAllMessages(filtered_search_tokens, function(message_results) {
+						  //res.render("search", {user_name: req.session.passport.user.user_name, title:"Search", announcement_results: announcement_results, message_results: message_results});
+						  res.render("search", {user_name: req.session.passport.user.user_name, title:"Search", announcement_results: announcement_results});
+						  
+					  //});
+				  });
 				  break;
 			  case 'Directory':
 				  console.log("*****List of Citizens");
@@ -46,11 +52,15 @@ module.exports = function(_, io, participants, passport) {
 				  console.log("*****Admin - List of Citizens");
 				  Search.getAllUsers(filtered_search_tokens);
 				  break;
+			  case 'Search':
+				  console.log("******Search - nothing to search here, go back to where you came from");
+				  return res.redirect('/wall');
+				  break;
 			  }
 		  });
 		  
 		  //some boo boo happened. falling back to the cute welcome page
-		  return res.redirect('/welcome');	  
+		  //return res.redirect('/welcome');	  
     }
   };
 };
