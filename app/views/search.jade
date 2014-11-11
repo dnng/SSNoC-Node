@@ -23,3 +23,13 @@ html
                 if typeof announcement !== 'undefined'
                   tr
                     td= "[" + announcement.local.author + " @ " + new Date(announcement.local.postedAt).toGMTString().slice(0, 22) + "] " + announcement.local.content
+       if ( typeof users !== 'undefined' && users !== null )
+        table.table.table-striped.table-bordered(id='tbl_users')
+          thead
+            tr
+              th  Users Found
+          tbody
+            each user in users
+              if typeof user !== 'undefined'
+                tr
+                  td #{user.local.name}
