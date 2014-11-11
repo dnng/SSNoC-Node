@@ -23,7 +23,7 @@ html
                 if typeof announcement !== 'undefined'
                   tr
                     td= "[" + announcement.local.author + " @ " + new Date(announcement.local.postedAt).toGMTString().slice(0, 22) + "] " + announcement.local.content
-       if ( typeof users !== 'undefined' && users !== null )
+      if ( typeof users !== 'undefined' && users !== null )
         table.table.table-striped.table-bordered(id='tbl_users')
           thead
             tr
@@ -32,4 +32,27 @@ html
             each user in users
               if typeof user !== 'undefined'
                 tr
-                  td #{user.local.name}
+                  td #{user.local.name}    
+      if ( typeof message_results !== 'undefined' && message_results !== null && message_results.length !== 0)  
+        div.container
+          table.table(id='tbl_private_message')
+            thead
+              tr
+                th Chat(s)
+            tbody
+              each private_message in message_results
+                if typeof private_message !== 'undefined'
+                  tr
+                    td= "[" + private_message.local.author_name+ " @ " + new Date(private_message.local.postedAt).toGMTString().slice(0, 22) + "] " + private_message.local.content
+      if ( typeof search_results !== 'undefined' && search_results !== null && search_results.length !== 0)  
+        div.container
+          table.table(id='tbl_public_message')
+            thead
+              tr
+                th WallMessage(s)
+            tbody
+              each public_message in search_results
+                if typeof public_message !== 'undefined'
+                  tr
+                    td= "[" + public_message.local.author+ " @ " + new Date(public_message.local.postedAt).toGMTString().slice(0, 22) + "] " + public_message.local.content
+   

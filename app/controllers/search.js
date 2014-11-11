@@ -6,10 +6,14 @@ module.exports = function(_, io, participants, passport) {
   return {
 	  performSearch: function(req, res) {
 		  console.log("Search request: " + req.param("search_string") + " in " + req.param("context") + " by " + req.session.passport.user.user_name);
+		  
+		  var author_name = req.param("author_name");
+		  var target_name = req.param("target_name")
+		  console.log("Author Name: " + author_name + " Target Name: " + target_name);
+		  
 		  var context = req.body.context;
 		  console.log("Context: " + context);
 		  		  	   
-
 		  var search_tokens = req.body.search_string.split(/[ ,]+/);
 		  console.log("Search tokens: " + search_tokens);
 
@@ -22,11 +26,11 @@ module.exports = function(_, io, participants, passport) {
 				  console.log("*****List of public messages and announcements");
 				  Search.searchAllAnnouncements(filtered_search_tokens, function(announcement_results) {
 					  //Chain all the search calls
-					  //Search.getAllMessages(filtered_search_tokens, function(message_results) {
-						  //res.render("search", {user_name: req.session.passport.user.user_name, title:"Search", announcement_results: announcement_results, message_results: message_results});
-						  res.render("search", {user_name: req.session.passport.user.user_name, title:"Search", announcement_results: announcement_results});
+					  Search.getAllMessages(filtered_search_tokens, function(search_results) {
+						  res.render("search", {user_name: req.session.passport.user.user_name, title:"Search", announcement_results: announcement_results, search_results: search_results});
+						  //res.render("search", {user_name: req.session.passport.user.user_name, title:"Search", announcement_results: announcement_results});
 						  
-					  //});
+					  });
 				  });
 				  break;
 			  case 'Directory':
@@ -39,7 +43,9 @@ module.exports = function(_, io, participants, passport) {
 				  break;
 			  case 'Chats':
 				  console.log("*****List of private messages");
-				  Search.getAllChatMessagesBetweenUsers(filtered_search_tokens);
+				  Search.getAllChatMessagesBetweenUsers(req.param('author_name'), req.param('target_name'), filtered_search_tokens, function(message_results) {
+					  res.render("search", {user_name: req.session.passport.user.user_name, title:"Search", message_results: message_results}); 
+				  });
 				  break;
 			  case 'Welcome':
 				  console.log("*****Welcome - nothing to search here, go back to where you came from");
