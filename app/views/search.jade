@@ -43,7 +43,7 @@ html
               each private_message in message_results
                 if typeof private_message !== 'undefined'
                   tr
-                    td= "[" + private_message.local.author_name+ " @ " + new Date(private_message.local.postedAt).toGMTString().slice(0, 22) + "] " + private_message.local.content
+                    td= "[" + private_message.local.author_name+ " @ " + new Date(private_message.local.posted_at).toGMTString().slice(0, 22) + "] " + private_message.local.content
       if ( typeof search_results !== 'undefined' && search_results !== null && search_results.length !== 0)  
         div.container
           table.table(id='tbl_public_message')
