@@ -27,12 +27,15 @@ html
         table.table.table-striped.table-bordered(id='tbl_users')
           thead
             tr
-              th  Users Found
+              th  User(s)
           tbody
             each user in users
-              if typeof user !== 'undefined'
+              if  typeof user.local.name !== undefined
                 tr
-                  td #{user.local.name}    
+                  if typeof user !== 'undefined' && typeof user.local.name !== 'undefined'
+                    td= user.local.name + " (" + user.local.privilegeLevel + ")"
+                  if typeof user !== 'undefined' && typeof user.local.author !== 'undefined'
+                    td= user.local.content + " : " + user.local.author + " @ " + new Date(user.local.postedAt).toGMTString().slice(0, 22) 
       if ( typeof message_results !== 'undefined' && message_results !== null && message_results.length !== 0)  
         div.container
           table.table(id='tbl_private_message')

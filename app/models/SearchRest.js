@@ -38,12 +38,6 @@ function Search(context, search_string, user_name, status, anouncement,
 	};
 }
 
-/*Search.remove_stop_words = function(stop_words_url, search_string) {
- var stop_words = request(stop_words_url);
- var stop_word_array = stop_words.split(",");
- console.log("Stop words fetched: " + stop_word_array);
- }*/
-
 function status_to_process(token, flag) {
 	this.local = {
 		token : token,
@@ -67,35 +61,40 @@ Search.getAllUsers = function(search_tokens, callback) {
 	console.log("Processing statuses:\n");
 	// remove status strings from search tokens and store in  
 	var user_names = [];
-	/*	
-	 //To-DO use a map instead
-	 var ok_status = false;
-	 var help_status = false;
-	 var emergency_status = false;
-	
-	 var status_tokens = new status_to_process(token, flag);
-	 search_tokens.forEach(function(token, index, array) {
-	 switch (token) {
-	 case 'OK':				
-	 case 'Help':				
-	 case 'Emergency':
-	 // ??
-	 status_tokens.put(token, true);
-	 break;
-	 default:
-	 user_names.push(token);		
-	 }
-	 });
-	
-	 // process the statuses
-	 Object.keys(status_tokens).forEach(function(key) {
-	 var val = status_tokens[key];
-	 console.log ("Statuses to process: " + val);
-	 });
-	 */
+		
+	var ok_status = false;
+	var help_status = false;
+	var emergency_status = false;
 
-	//
-	user_names = search_tokens;
+	var status_tokens = {};
+	search_tokens.forEach(function(element, index, array) {
+		switch (element) {
+		case 'OK':				
+		case 'HELP':				
+		case 'EMERGENCY':
+			status_tokens[element] = true;
+			break;
+		default:
+			user_names.push(element);		
+		}
+	});
+
+	var users = [];
+	console.log("Fetching status messages");
+	WallMessage.getAllMessages(function(err, messages) {
+        console.log("STATUS MESSAGES: " + messages);
+        messages.forEach(function(element, index, array){
+        	console.log("Searching " + element["local"]["content"] + " " + status_tokens[element["local"]["content"]]);
+        	if (status_tokens[element["local"]["content"]]) {
+        		users.push(element);
+        		}
+        	});
+         search_people(user_names, users, callback);        
+        });
+
+}
+
+function search_people(user_names, users, callback) {
 	console.log("Processing user names:\n");
 
 	if (typeof user_names != 'undefined') {
@@ -115,7 +114,8 @@ Search.getAllUsers = function(search_tokens, callback) {
 		});
 
 		async.parallel(search_operation, function(error, results) {
-			var users = [];
+			
+			console.log("Got " + results.length + " user results");
 			for (var i = 0; i < results.length; i++) {
 				if (results[i]) {
 					users.push(results[i]);
