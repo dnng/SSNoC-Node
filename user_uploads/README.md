@@ -1,0 +1,1 @@
+# Blank folder to hold user uploads like photos and videos

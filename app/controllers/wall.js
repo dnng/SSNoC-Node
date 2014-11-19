@@ -29,6 +29,8 @@ module.exports = function(_, io, participants, passport) {
       },
 
     postWallMessage: function(req, res, next) {
+    	console.log(req.body);
+    	console.log(req.files);
         WallMessage.saveNewWallMessage(req.session.passport.user.user_name, req.body.content, req.body.location, function(err, new_message) {
           if (err)
           {

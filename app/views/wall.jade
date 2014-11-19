@@ -31,11 +31,11 @@ html
                 p 
                   = "[" + announcement.local.author + " @ " + new Date(announcement.local.postedAt).toGMTString().slice(0, 22) + "] " + announcement.local.content
     div.container
-      form(action='/wall', method='post')
-
+      form(action='/wall', method='post', enctype='multipart/form-data')
         div.row.text-center.col-sm-10
           div.signup
             textarea.form-control(type='text' class="form-control" name='content' id='content' rows='3' placeholder="Share a message with the community")
+            input(type="file", accept="image/*;capture=camera", name="user_photo", id="user_photo")
             div.form-group
               input.name(type='hidden' class="form-control" name='location' id='location' placeholder="Enter your current location")
         div.col-sm-2

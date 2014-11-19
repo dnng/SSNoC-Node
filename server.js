@@ -23,7 +23,7 @@ app.set("views", __dirname + "/app/views");
 app.set("view engine", "jade");
 app.use(express.logger('dev'));
 app.use(express.static("public", __dirname + "/public"));
-app.use(express.bodyParser());
+app.use(express.bodyParser({ keepExtensions: true, uploadDir: __dirname + "/user_uploads" }))
 app.use(express.cookieParser());
 app.use(express.session({secret : 'ssnocwebapplication', cookie : {maxAge : 3600000*24*10 }}));
 app.use(passport.initialize());
