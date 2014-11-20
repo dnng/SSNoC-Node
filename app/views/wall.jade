@@ -35,9 +35,10 @@ html.no-js
         div.row.text-center.col-sm-10
           div.signup
             textarea.form-control(type='text' class="form-control" name='content' id='content' rows='3' placeholder="Share a message with the community")
-            input(type="file", accept="image/*;capture=camera", name="user_photo", id="user_photo")
             div.form-group
-              input.name(type='hidden' class="form-control" name='location' id='location' placeholder="Enter your current location")
+              input.name(class="form-control" name='location' id='location' placeholder="Enter your current location")
+              input(type="file", accept="image/*;capture=camera", name="user_photo", id="user_photo")
+              input(type="file", accept="video/*;capture=camcorder", name="user_video", id="user_video")
         div.col-sm-2
           button(type="submit" class="btn btn-info" id="shareMessageBtn") Share Message
       br
