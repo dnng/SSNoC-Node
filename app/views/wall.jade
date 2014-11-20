@@ -35,12 +35,17 @@ html.no-js
         div.row.text-center.col-sm-10
           div.signup
             textarea.form-control(type='text' class="form-control" name='content' id='content' rows='3' placeholder="Share a message with the community")
-            div.form-group
-              input.name(class="form-control" name='location' id='location' placeholder="Enter your current location")
-              input(type="file", accept="image/*;capture=camera", name="user_photo", id="user_photo")
-              input(type="file", accept="video/*;capture=camcorder", name="user_video", id="user_video")
+            input.name(type="hidden" class="form-control" name='location' id='location' placeholder="Enter your current location")
+            div.form-inline
+              input(type="file", class="hidden", accept="image/*;capture=camera", name="user_photo", id="user_photo")
+              input(type="file", class="hidden", accept="video/*;capture=camcorder", name="user_video", id="user_video")
         div.col-sm-2
           button(type="submit" class="btn btn-info" id="shareMessageBtn") Share Message
+          div.form-inline
+            a(href="#" onclick="document.getElementById('user_photo').click();")
+              i.glyphicon.glyphicon-camera.btn-lg
+            a(href="#" onclick="document.getElementById('user_video').click();")
+              i.glyphicon.glyphicon-facetime-video.btn-lg
       br
       br
       form(action='/status', method='post')
