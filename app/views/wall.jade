@@ -103,3 +103,7 @@ html.no-js
                         = message.local.author + " posted: " + message.local.content
                         if message.local.imagePath != ''
                           img.img-responsive(src= message.local.imagePath)
+                        if message.local.videoPath != ''
+                          div.embed-responsive.embed-responsive-16by9
+                            video.embed-responsive-item
+                              source(src= message.local.videoPathß)
