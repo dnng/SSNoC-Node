@@ -2,14 +2,16 @@ var bcrypt = require('bcrypt-nodejs');
 var request = require('request');
 var rest_api = require('../../config/rest_api');
 
-function WallMessage(message_id, author, content, status, location, postedAt){
+function WallMessage(message_id, author, content, status, location, postedAt, imagePath, videoPath){
   this.local = {
     message_id : message_id,
     author : author,
     content : content,
     status : status,
     location : location,
-    postedAt : postedAt
+    postedAt : postedAt,
+    imagePath : imagePath,
+    videoPath : videoPath
   };
 }
 
@@ -21,7 +23,7 @@ WallMessage.getAllWallMessages = function(callback) {
     }
     if (res.statusCode === 200) {
       var wallMessages = body.map(function(item, idx, arr){
-        return new WallMessage(item.messageId, item.author, item.content, item.status, item.location, item.postedAt);
+        return new WallMessage(item.messageId, item.author, item.content, item.status, item.location, item.postedAt, item.imagePath, item.videoPath);
       });
 
       console.log("@@@@@ in WallMessage.getAllWallMessages succeed messages :" + JSON.stringify(wallMessages));
@@ -44,7 +46,7 @@ WallMessage.getAllMessages = function(callback) {
 	    }
 	    if (res.statusCode === 200) {
 	      var wallMessages = body.map(function(item, idx, arr){
-	        return new WallMessage(item.messageId, item.author, item.content, item.status, item.location, item.postedAt);
+	        return new WallMessage(item.messageId, item.author, item.content, item.status, item.location, item.postedAt, item.imagePath, item.videoPath);
 	      });
 
 	      console.log("@@@@@ in WallMessage.getAllMessages succeed messages :" + JSON.stringify(wallMessages));
@@ -59,11 +61,11 @@ WallMessage.getAllMessages = function(callback) {
 	};
 
 
-WallMessage.saveNewWallMessage = function(author, content, location, callback) {
-  console.log("inside save new wall message method with " + author + " " + content + " " + location);
+WallMessage.saveNewWallMessage = function(author, content, location, imagePath, videoPath, callback) {
+  console.log("inside save new wall message method with " + author + " " + content + " " + location + " " + imagePath + " " + videoPath);
   var options = {
     url : rest_api.post_new_wall_message + author,
-    body : {author: author, content: content, location: location},
+    body : {author: author, content: content, location: location, imagePath: imagePath, videoPath: videoPath},
     json: true
   };
 
@@ -78,7 +80,7 @@ WallMessage.saveNewWallMessage = function(author, content, location, callback) {
       callback(res.body, null);
       return;
     }
-    var new_wall_message = new WallMessage(body.messageId, body.author, body.content, body.status, body.location, body.postAt);
+    var new_wall_message = new WallMessage(body.messageId, body.author, body.content, body.status, body.location, body.postAt, body.imagePath, body.videoPath);
     callback(null, new_wall_message);
     return;
   });

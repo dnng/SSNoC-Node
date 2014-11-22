@@ -25,7 +25,7 @@ function init() {
         var lng = position.coords.longitude;
         var acr = position.coords.accuracy;
         console.log("latitude:" + lat + ", longitude:" + lng + ", accuracy:" + acr);
-        $('input#location').val("Location lat:" + lat + ", lng:" + lng);
+        $('input#location').val("lat:" + lat + ", lng:" + lng);
     }
 
     // handle geolocation api errors

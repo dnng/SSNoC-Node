@@ -29,9 +29,19 @@ module.exports = function(_, io, participants, passport) {
       },
 
     postWallMessage: function(req, res, next) {
-    	console.log(req.body);
-    	console.log(req.files);
-        WallMessage.saveNewWallMessage(req.session.passport.user.user_name, req.body.content, req.body.location, function(err, new_message) {
+    	var imagePath = "";
+    	var videoPath = "";
+    	if (req.files.user_photo.size > 0) 
+    	{
+    		var tokenized_path = req.files.user_photo.path.split("public");
+    		imagePath = tokenized_path[1];
+    	}
+    	if (req.files.user_video.size > 0)
+    	{
+    		var tokenized_path = req.files.user_video.path.split("public");
+    		videoPath = tokenized_path[1];
+    	}
+        WallMessage.saveNewWallMessage(req.session.passport.user.user_name, req.body.content, req.body.location, imagePath, videoPath, function(err, new_message) {
           if (err)
           {
         	  console.log(err);

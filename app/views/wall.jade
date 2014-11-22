@@ -37,8 +37,8 @@ html.no-js
             textarea.form-control(type='text' class="form-control" name='content' id='content' rows='3' placeholder="Share a message with the community")
             input.name(type="hidden" class="form-control" name='location' id='location' placeholder="Enter your current location")
             div.form-inline
-              input(type="file", class="hidden", accept="image/*;capture=camera", name="user_photo", id="user_photo")
-              input(type="file", class="hidden", accept="video/*;capture=camcorder", name="user_video", id="user_video")
+              input(type="file", class="hidden", accept="image/*", capture, name="user_photo", id="user_photo")
+              input(type="file", class="hidden", accept="video/*", capture, name="user_video", id="user_video")
         div.col-sm-2
           button(type="submit" class="btn btn-info" id="shareMessageBtn") Share Message
           div.form-inline
@@ -101,3 +101,5 @@ html.no-js
                         = "[" + new Date(message.local.postedAt).toGMTString().slice(0, 25) + "] "
                       td
                         = message.local.author + " posted: " + message.local.content
+                        if message.local.imagePath != ''
+                          img.img-responsive(src= message.local.imagePath)
