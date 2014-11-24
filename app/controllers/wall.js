@@ -15,7 +15,7 @@ module.exports = function(_, io, participants, passport) {
         	console.log("ANNOUNCEMENTS: " + announcements);
         	if (err)
         		return res.redirect('/welcome');
-        	res.render("wall", {userId: req.session.userId, title:"Messages", user_name:req.session.passport.user.user_name, messages: messages, announcements: announcements});
+        	res.render("wall", {userId: req.sessi on.userId, title:"Messages", user_name:req.session.passport.user.user_name, messages: messages, announcements: announcements});
         	});
         });
     },
