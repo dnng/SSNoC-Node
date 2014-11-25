@@ -101,9 +101,9 @@ html.no-js
                         = "[" + new Date(message.local.postedAt).toGMTString().slice(0, 25) + "] "
                       td
                         = message.local.author + " posted: " + message.local.content
-                        if message.local.imagePath != ''
+                        if typeof message.local.imagePath !== 'undefined' && message.local.imagePath != ''
                           img.img-responsive(src= message.local.imagePath)
-                        if message.local.videoPath != ''
+                        if typeof message.local.videoPath !== 'undefined' && message.local.videoPath != ''
                           div.embed-responsive.embed-responsive-16by9
                             video.embed-responsive-item
                               source(src= message.local.videoPathß)
