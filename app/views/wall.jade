@@ -105,5 +105,5 @@ html.no-js
                           img.img-responsive(src= message.local.imagePath)
                         if typeof message.local.videoPath !== 'undefined' && message.local.videoPath != ''
                           div.embed-responsive.embed-responsive-16by9
-                            video.embed-responsive-item
-                              source(src= message.local.videoPathß)
+                            video.embed-responsive-item(controls)
+                              source(src= message.local.videoPath)
