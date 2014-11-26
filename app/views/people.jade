@@ -16,7 +16,17 @@ html
             br
             img(src="/img/photo4.png" height=60)
           div.col-xs-8.col-sm-9.col-md-10.col-lg-10
-            strong #{user_name} #{lastStatus}
+            strong #{user_name}
+          div.col-xs-8.col-sm-9.col-md-10.col-lg-10
+            if lastStatus == "OK"
+              img(src="/img/green.png" height=30) 
+              strong &nbsp; #{lastStatus}
+            else if lastStatus == "HELP"
+              img(src="/img/yellow.png" height=30) 
+              strong &nbsp; #{lastStatus}
+            else if lastStatus == "EMERGENCY"
+              img(src="/img/red.png" height=30) 
+              strong &nbsp; #{lastStatus}
       div.well#participants_online
       br
       br
