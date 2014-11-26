@@ -59,7 +59,7 @@ function refreshAllUsers(participants, callback) {
   participants.all = [];
   User.getAllActiveUsers(function(err, users) {
     users.forEach(function(user) {
-      participants.all.push({'userName' : user.local.name});
+      participants.all.push({'userName' : user.local.name, 'lastStatus' : user.local.lastStatus});
     });
     callback();
   });

@@ -41,6 +41,7 @@ module.exports = function(passport) {
       }
       user.isValidPassword(password, function(isSuccessful){
         if (isSuccessful){
+          console.log("Authenticated user is:" + JSON.stringify(user));
           return done(null, user);
         } else {
           return done(null, false, req.flash('loginMessage', 'Oops! Wrong password'));

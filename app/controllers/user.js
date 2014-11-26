@@ -19,7 +19,7 @@ module.exports = function(_, io, participants, passport, refreshAllUsers) {
       var user_name = req.session.passport.user.user_name;
       User.getUser(user_name, function(err, user) {
         if (user !== null) {
-          res.json(200, {name:user.local.name});
+          res.json(200, {name:user.local.name, lastStatus:user.local.lastStatus});
         }
       });
     },

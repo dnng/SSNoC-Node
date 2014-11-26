@@ -6,7 +6,6 @@ var _        = require("underscore");
 var passport = require('passport');
 var flash    = require('connect-flash');
 var User     = require('./app/models/UserRest');
-var Status   = require('./app/models/StatusRest');
 
 var participants = {
   online : {},
@@ -37,18 +36,8 @@ app.use(function(req,res,next){
 User.getAllActiveUsers(function(err, users) {
   if (!err && users && users.length > 0) {
     users.forEach(function(user) {
-      participants.all.push({userName : user.local.name});
-    });
-  }
-  require('./app/routes')(app, _, io, participants, passport);
-  require('./app/socket')(_, io, participants);
-});
-
-
-Status.getAllStatuses(function(err, statuses) {
-  if (!err && statuses && statuses.length > 0) {
-    statuses.forEach(function(status) {
-      console.log(status);
+      console.log("Retrived user is:" + JSON.stringify(user));
+      participants.all.push({userName : user.local.name, lastStatus : user.local.lastStatus});
     });
   }
   require('./app/routes')(app, _, io, participants, passport);

@@ -2,12 +2,13 @@ var bcrypt = require('bcrypt-nodejs');
 var request = require('request');
 var rest_api = require('../../config/rest_api');
 
-function User(user_name, password, privilegeLevel, accountStatus){
+function User(user_name, password, privilegeLevel, accountStatus, lastStatus){
   this.local = {
     name : user_name,
     password : password,
     privilegeLevel : privilegeLevel,
-    accountStatus : accountStatus
+    accountStatus : accountStatus,
+    lastStatus : lastStatus
   };
 }
 
@@ -33,7 +34,7 @@ User.getUser = function(user_name, callback) {
       return;
     }
     if (res.statusCode === 200) {
-      var user = new User(body.userName, body.password, body.privilegeLevel, body.accountStatus);
+      var user = new User(body.userName, body.password, body.privilegeLevel, body.accountStatus, body.lastStatus);
       callback(null, user);
       return;
     }
@@ -52,7 +53,7 @@ User.getAllUsers = function(callback) {
     }
     if (res.statusCode === 200) {
       var users = body.map(function(item, idx, arr){
-        return new User(item.userName, item.password, item.privilegeLevel, item.accountStatus);
+        return new User(item.userName, item.password, item.privilegeLevel, item.accountStatus, item.lastStatus);
       });
 
       users.sort(function(a,b) {
@@ -78,7 +79,7 @@ User.getAllActiveUsers = function(callback) {
 	    }
 	    if (res.statusCode === 200) {
 	      var users = body.map(function(item, idx, arr){
-	        return new User(item.userName, item.password, item.privilegeLevel, item.accountStatus);
+	        return new User(item.userName, item.password, item.privilegeLevel, item.accountStatus, item.lastStatus);
 	      });
 
 	      users.sort(function(a,b) {

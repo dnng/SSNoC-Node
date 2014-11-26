@@ -78,8 +78,9 @@ function init() {
     }).done(function(data) {
       var name = data.name;
       my_name = data.name;
+      var lastStatus = data.lastStatus;
 
-      socket.emit('newUser', {id: sessionId, name: name});
+      socket.emit('newUser', {id: sessionId, name: name, lastStatus: lastStatus});
     });
   });
 
