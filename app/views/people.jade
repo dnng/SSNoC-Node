@@ -11,13 +11,13 @@ html
       br
       div.well#myself.search_item
         div.row.user-row
-          div.col-xs-3.col-sm-2.col-md-1.col-lg-1
+          div.col-sm-1.col-md-1.col-lg-1
             img(src="/img/green-dot.png" height=10)
             br
             img(src="/img/photo4.png" height=60)
-          div.col-xs-8.col-sm-9.col-md-10.col-lg-10
+          div.col-sm-3.col-md-3.col-lg-3
             strong #{user_name}
-          div.col-xs-8.col-sm-9.col-md-10.col-lg-10
+          div.col-sm-3.col-md-3.col-lg-3
             if lastStatus == "OK"
               img(src="/img/green.png" height=30) 
               strong &nbsp; #{lastStatus}
@@ -27,6 +27,18 @@ html
             else if lastStatus == "EMERGENCY"
               img(src="/img/red.png" height=30) 
               strong &nbsp; #{lastStatus}
+          div.col-sm-5.col-md-5.col-lg-5
+            form(action='/status', method='post')
+              div.signup
+                div.form-group
+                  select.form-control(name='status', id='status')
+                    option(value="OK") I am OK, I do not need help
+                    option(value="HELP") I need help, but this is not a life threatening emergency
+                    option(value="EMERGENCY") I need help now, as this is a life threatening emergency!
+                div.form-group
+                  input.name(type='hidden' class="form-control" name='location' id='location' placeholder="Enter your current location")
+              div.col-sm-2
+                button(type="submit" class="btn btn-info" id="updateStatusBtn") Share Status
       div.well#participants_online
       br
       br
