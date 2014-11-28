@@ -37,9 +37,22 @@ module.exports = function(_, io, participants, passport) {
 				  console.log("*****List of Citizens");
 				  //Search.getAllUsers(filtered_search_tokens);
 				  Search.getAllUsers(search_tokens, function(err, results){
-					  				  console.log("***Result : " + results.length)
-					  				  res.render("search", {users:results});
-					  				});
+					  if (err || results == null || results[0] == null) {
+						 
+						  /*app.get('/flash', function(req, res){
+							  req.flash('passport_alert', 'No matching users found! Try again.')
+							  res.redirect('people');
+							});*/
+						  //res.render('people', {search_alert: 'No matching users found! Try again.'});
+						  req.flash('search_alert', 'No matching users found! Try again.');
+						  console.log(req);
+						  //console.log("FLASH*********" + req.flash('search_alert'));
+						  res.redirect('people');
+						  
+					  }
+					  else
+						  res.render("search", {users:results});					  					
+				  });
 				  break;
 			  case 'Chats':
 				  console.log("*****List of private messages");

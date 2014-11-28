@@ -9,6 +9,9 @@ html
     div.container
       br
       br
+      if(search_alert && search_alert)
+        .alert.alert-danger !{search_alert}
+      br
       div.well#myself.search_item
         div.row.user-row
           div.col-sm-1.col-md-1.col-lg-1
