@@ -38,17 +38,12 @@ module.exports = function(_, io, participants, passport) {
 				  //Search.getAllUsers(filtered_search_tokens);
 				  Search.getAllUsers(search_tokens, function(err, results){
 					  if (err || results == null || results[0] == null) {
-						 
-						  /*app.get('/flash', function(req, res){
-							  req.flash('passport_alert', 'No matching users found! Try again.')
-							  res.redirect('people');
-							});*/
-						  //res.render('people', {search_alert: 'No matching users found! Try again.'});
-						  req.flash('search_alert', 'No matching users found! Try again.');
-						  console.log(req);
+						  //To-Do: fix to make the redirect work instead
+						  res.render('people', {search_alert: 'No matching users found! Try again.'});
+						  //req.flash('search_alert', 'No matching users found! Try again.');
+						  //console.log(req);
 						  //console.log("FLASH*********" + req.flash('search_alert'));
-						  res.redirect('people');
-						  
+						  //res.redirect('people');						  
 					  }
 					  else
 						  res.render("search", {users:results});					  					
