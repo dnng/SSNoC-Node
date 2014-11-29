@@ -25,6 +25,7 @@ function init() {
 
     for (var i = 0; i < keys.length; i++) {
       var name = keys[i];
+      var author_name = userName;
       console.log("Map of User is " + JSON.stringify(map[name]));
       var user_status = map[name].status;
       if (user_status == undefined)
@@ -50,6 +51,7 @@ function init() {
     }
 
     participants.all.forEach(function(userObj) {
+      author_name = userName;
       if (map[userObj.userName] == undefined) {
     	  console.log("userObj:[" + userObj.userName + ", " + userObj.lastStatus + "], map:" + map[userObj.userName]);
     	var offline_status = userObj.lastStatus;
