@@ -29,7 +29,7 @@ html.no-js
             each announcement in announcements
               if typeof announcement !== 'undefined'
                 p 
-                  = "[" + announcement.local.author + " @ " + new Date(announcement.local.postedAt).toGMTString().slice(0, 22) + "] " + announcement.local.content
+                  = "[" + announcement.local.author + " on " + new Date(announcement.local.postedAt).toGMTString().slice(0, 22) + " @ " + announcement.local.location + "] " + announcement.local.content
     div.container
       form(action='/wall', method='post', enctype='multipart/form-data')
         div.row.text-center.col-sm-10
@@ -69,15 +69,18 @@ html.no-js
           if messages !== null
             thead
               tr
-                th Time
-                th Status/Message
+                th.col-sm-3 Time
+                th.col-sm-3 Location
+                th.col-sm-6 Status/Message
             each message in messages 
               tbody      
                 if typeof message !== 'undefined' 
                   if message.local.content == "OK"
                     tr
                       td  
-                        = "[" + new Date(message.local.postedAt).toGMTString().slice(0, 25) + "] " 
+                        = "[" + new Date(message.local.postedAt).toGMTString().slice(0, 25) + "] "
+                      td
+                        = message.local.location
                       td  
                         = message.local.author + "'s Status: " + message.local.content + "     "
                           img(src="/img/green.png" height=30)
@@ -86,6 +89,8 @@ html.no-js
                       td
                         = "[" + new Date(message.local.postedAt).toGMTString().slice(0, 25) + "] "
                       td
+                        = message.local.location
+                      td
                         = message.local.author + "'s Status: " + message.local.content + "     "
                           img(src="/img/yellow.png" height=30)
                   else if message.local.content == "EMERGENCY"  
@@ -93,12 +98,16 @@ html.no-js
                       td
                         = "[" + new Date(message.local.postedAt).toGMTString().slice(0, 25) + "] "
                       td
+                        = message.local.location
+                      td
                         = message.local.author + "'s Status: " + message.local.content + "     "
                           img(src="/img/red.png" height=30)
                   else
                       tr
                       td
                         = "[" + new Date(message.local.postedAt).toGMTString().slice(0, 25) + "] "
+                      td
+                        = message.local.location
                       td
                         = message.local.author + " posted: " + message.local.content
                         if typeof message.local.imagePath !== 'undefined' && message.local.imagePath != ''
