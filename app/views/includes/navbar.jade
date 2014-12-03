@@ -6,21 +6,15 @@ nav.navbar.navbar-default.navbar-fixed-top(role="navigation")#top-navbar
       span.icon-bar
     p.navbar-brand
   div.navbar-collapse.collapse
-    if session.passport.user.privilege == "Citizen"
-      form.navbar-form.navbar-left(action='/search', method='post', role="search")
-        div.form-group
-          input.user_name.form-control(id="user_name" type="hidden" class='form-control' name='user_name' value=user_name)
-          input.author_name.form-control(id="author_name" type="hidden" class='form-control' name='author_name' value=author_name)
-          input.target_name.form-control(id="target_name" type="hidden" class='form-control' name='target_name' value=target_name)
-          input.search_string.form-control(type='search' id='search_string' name='search_string' placeholder='#{title}' value=search_string)
-          input.context.form-control(type='hidden' class="form-control" name='context' id='context' placeholder="Search context" value='#{title}')
-          button.btn.btn-default(type='submit')
-            span.glyphicon.glyphicon-search
-    else
-      span.icon-bar
-      span.icon-bar
-      span.icon-bar
-      p.navbar-brand #{title}
+    form.navbar-form.navbar-left(action='/search', method='post', role="search")
+      div.form-group
+        input.user_name.form-control(id="user_name" type="hidden" class='form-control' name='user_name' value=user_name)
+        input.author_name.form-control(id="author_name" type="hidden" class='form-control' name='author_name' value=author_name)
+        input.target_name.form-control(id="target_name" type="hidden" class='form-control' name='target_name' value=target_name)
+        input.search_string.form-control(type='search' id='search_string' name='search_string' placeholder='#{title}' value=search_string)
+        input.context.form-control(type='hidden' class="form-control" name='context' id='context' placeholder="Search context" value='#{title}')
+        button.btn.btn-default(type='submit')
+          span.glyphicon.glyphicon-search
     ul.nav.nav-justified#nav_list
       li
         a(href="/wall")
