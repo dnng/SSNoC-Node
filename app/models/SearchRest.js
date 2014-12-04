@@ -63,53 +63,34 @@ Search.strip_stop_words = function(search_tokens, callback) {
 	callback(filtered_search_tokens);
 }
 
-Search.getAllUsers = function(search_tokens, callback) {
-	var user_names = {};
-	var status_tokens = {};
-	search_tokens.forEach(function(element, index, array) {
-		var token = element.toUpperCase();
-		switch (token) {		
-		case 'OK':				
-		case 'HELP':				
-		case 'EMERGENCY':
-			status_tokens[token] = true;
-			break;
-		default:
-			user_names[element] = true;		
-		}
-	});
+Search.getAllUsers = function(filtered_search_tokens, callback) {
 
-	var result = {};
-	if (typeof user_names !== 'undefined' || typeof status_tokens !== 'undefined') {
-		User.getAllUsers(function(err, users) {
-			if (users !== null) {
-				for(var name in user_names) {						
-					users.forEach(function(val, index, array) {
-						if (name.toUpperCase().indexOf(val.local.name.toUpperCase()) != -1) {
-							if (typeof result[name] == 'undefined') {
-								result[name] = [];
-							}
-							result[name].push(val);
-						}	
-						console.log (name + " : " + result[name]);
-					});
-				}
-				
-				for(var status in status_tokens) {	
-					users.forEach(function(val, index, array) {
-						if (val.local.lastStatus && status.toUpperCase().indexOf(val.local.lastStatus.toUpperCase()) != -1) {
-							if (typeof result[status] == 'undefined') {
-								result[status] = [];
-							}
-							result[status].push(val);
-						}	
-					});
-				}
-			}
-			//To-Do: return and render results
-			callback(null, users);
-		});
+	var user_results = [];
+	if (filtered_search_tokens.length < 1) {
+		//no search results
+		callback(user_results);
 	}
+
+	User.getAllUsers(function(err, users) {
+				if (err) {
+					callback(err, user_results);
+				}
+				users.forEach(function(user) {
+					for (i = 0; i < filtered_search_tokens.length; i++) {
+						if(user.local.lastStatus == null)
+						{	user.local.lastStatus = "Not Stated";}
+						if (user.local.name.toUpperCase()
+								.indexOf(filtered_search_tokens[i].toUpperCase()) > -1 || 
+								user.local.lastStatus.toUpperCase()
+								.indexOf(filtered_search_tokens[i].toUpperCase()) > -1) {
+							user_results.push(user);
+						}
+					}
+				});
+				console.log("Search Results::Users::"
+						+ JSON.stringify(user_results));
+				callback(null, user_results);
+			});
 }
 
 ///Public Message
@@ -132,8 +113,8 @@ Search.getAllMessages = function(filtered_search_tokens, callback) {
 				}
 				public_message.forEach(function(public_message) {
 					for (i = 0; i < filtered_search_tokens.length; i++) {
-						if (public_message.local.content
-								.indexOf(filtered_search_tokens[i]) > -1) {
+						if (public_message.local.content.toUpperCase()
+								.indexOf(filtered_search_tokens[i].toUpperCase()) > -1) {
 							search_results.push(public_message);
 							break;
 						}
@@ -166,8 +147,8 @@ Search.getAllChatMessagesBetweenUsers = function(author_name, target_name, filte
 				}
 				private_message.forEach(function(private_message) {
 					for (i = 0; i < filtered_search_tokens.length; i++) {
-						if (private_message.local.content
-								.indexOf(filtered_search_tokens[i]) > -1) {
+						if (private_message.local.content.toUpperCase()
+								.indexOf(filtered_search_tokens[i].toUpperCase()) > -1) {
 							message_results.push(private_message);
 							break;
 						}
@@ -196,8 +177,8 @@ Search.searchAllAnnouncements = function(filtered_search_tokens, callback) {
 
 		announcements.forEach(function(announcement) {
 			for (i = 0; i < filtered_search_tokens.length; i++) {
-				if (announcement.local.content
-						.indexOf(filtered_search_tokens[i]) > -1) {
+				if (announcement.local.content.toUpperCase()
+						.indexOf(filtered_search_tokens[i].toUpperCase()) > -1) {
 					announcement_results.push(announcement);
 					break;
 				}

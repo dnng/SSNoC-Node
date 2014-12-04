@@ -23,16 +23,16 @@ html
                 if typeof announcement !== 'undefined'
                   tr
                     td= "[" + announcement.local.author + " @ " + new Date(announcement.local.postedAt).toGMTString().slice(0, 22) + "] " + announcement.local.content
-      if ( typeof users !== 'undefined' && users !== null )
+      if ( typeof user_results !== 'undefined' && user_results !== null )
         table.table.table-striped.table-bordered(id='tbl_users')
           thead
             tr
               th  Users Found
           tbody
-            each user in users
+            each user in user_results
               if typeof user !== 'undefined'
                 tr
-                  td #{user.local.name}    
+                  td #{user.local.name} - #{user.local.lastStatus}    
       if ( typeof message_results !== 'undefined' && message_results !== null && message_results.length !== 0)  
         div.container
           table.table(id='tbl_private_message')

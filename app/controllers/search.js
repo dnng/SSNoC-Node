@@ -36,8 +36,8 @@ module.exports = function(_, io, participants, passport) {
 			  case 'Directory':
 				  console.log("*****List of Citizens");
 				  //Search.getAllUsers(filtered_search_tokens);
-				  Search.getAllUsers(search_tokens, function(err, results){
-					  if (err || results == null || results[0] == null) {
+				  Search.getAllUsers(search_tokens, function(err, user_results){
+					  if (err || user_results == null || user_results.length < 1) {
 						  //To-Do: fix to make the redirect work instead
 						  res.render('people', {search_alert: 'No matching users found! Try again.'});
 						  //req.flash('search_alert', 'No matching users found! Try again.');
@@ -46,7 +46,7 @@ module.exports = function(_, io, participants, passport) {
 						  //res.redirect('people');						  
 					  }
 					  else
-						  res.render("search", {users:results});					  					
+						  res.render("search", {user_results:user_results});					  					
 				  });
 				  break;
 			  case 'Chats':
